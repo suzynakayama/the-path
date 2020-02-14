@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
-
-const SECRET = process.env.SECRET;
 
 const SALT_ROUNDS = 6;
 
@@ -40,5 +37,9 @@ userSchema.pre("save", function(next) {
         next();
     });
 });
+
+userSchema.methods.comparePassword = function(tryPassword, cb) {
+    bcrypt.compare(tryPassword, this.password, cb);
+};
 
 module.exports = mongoose.model("User", userSchema);

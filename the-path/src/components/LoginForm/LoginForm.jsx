@@ -1,65 +1,42 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import userService from "../../utils/userService";
-import "../LoginForm/LoginForm.css";
 
-class SignupForm extends Component {
+class LoginPage extends Component {
     state = {
-        name: "",
         email: "",
-        password: "",
-        confPass: ""
+        password: ""
     };
 
     handleChange = evt => {
-        this.props.updateMessage("");
         this.setState({
-            [evt.target.name]: evt.target.name
+            [evt.target.name]: evt.target.value
         });
     };
 
     handleSubmit = async evt => {
         evt.preventDefault();
         try {
-            await userService.signup(this.state);
+            await userService.login(this.state);
             this.props.handleSignupOrLogin();
             this.props.history.push("/");
         } catch (err) {
-            this.props.updateMessage(err.message);
+            // Use a modal or toast in your apps instead of alert
+            //"Invalid Credentials!";
         }
     };
-
-    isFormInvalid() {
-        return !(
-            this.state.name &&
-            this.state.email &&
-            this.state.password === this.state.confPass
-        );
-    }
 
     render() {
         return (
             <div className="mt-5">
                 <div className="m-5 p-5 border rounded col-sm-8 mx-auto green">
                     <header>
-                        <h2 className="mb-5 font-weight-bold">Sign Up</h2>
+                        <h2 className="mb-5 font-weight-bold">Login</h2>
                     </header>
                     <form
                         className="form-horizontal"
                         onSubmit={this.handleSubmit}
                     >
-                        <div className="form-group">
-                            <label htmlFor="name" className="mb-4">
-                                Name:
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control col-sm-6 mx-auto mb-4"
-                                id="name"
-                                value={this.state.name}
-                                name="name"
-                                onChange={this.handleChange}
-                            />
-                        </div>
                         <div className="form-group">
                             <label htmlFor="email" className="mb-4">
                                 Email:
@@ -87,24 +64,19 @@ class SignupForm extends Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="confPass" className="mb-4">
-                                Confirm Password:
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control col-sm-6 mx-auto mb-4"
-                                id="confPass"
-                                value={this.state.passwordConf}
-                                name="confPass"
-                                onChange={this.handleChange}
-                            />
+                            <div className="col-sm-12 text-center">
+                                <button className="btn btn-outline-light mt-4">
+                                    Log In
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <Link
+                                    className="btn btn-outline-light mt-4"
+                                    to="/"
+                                >
+                                    Cancel
+                                </Link>
+                            </div>
                         </div>
-                        <button
-                            className="btn btn-outline-light mt-4"
-                            disabled={this.isFormInvalid()}
-                        >
-                            Submit
-                        </button>
                     </form>
                 </div>
             </div>
@@ -112,4 +84,4 @@ class SignupForm extends Component {
     }
 }
 
-export default SignupForm;
+export default LoginPage;

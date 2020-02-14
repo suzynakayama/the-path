@@ -1,0 +1,15 @@
+.main-div {
+    height: 350px;
+    margin-top: -130px;
+    z-index: 1;
+    background-color: darkgreen;
+    color: white;
+}
+
+.main-line {
+    width: 120vw;
+    margin-left: -10vw;
+    height: 1px;
+    background-color: #bbb;
+    box-shadow: 2px 0 10px #aaa;
+}

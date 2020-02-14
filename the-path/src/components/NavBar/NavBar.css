@@ -1,0 +1,22 @@
+.NavBar {
+    height: 60px;
+    line-height: 60px;
+}
+
+.nav-div-icon {
+    width: 50vw;
+}
+
+.nav-icon {
+    height: 50px;
+    width: auto;
+}
+
+.left {
+    width: 70vw;
+}
+
+.NavBar-link {
+    font-size: 25px;
+    margin: 0 20px;
+}
