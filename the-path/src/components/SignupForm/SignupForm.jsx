@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import userService from "../../utils/userService";
 import "../LoginForm/LoginForm.css";
 
@@ -11,9 +12,8 @@ class SignupForm extends Component {
     };
 
     handleChange = evt => {
-        this.props.updateMessage("");
         this.setState({
-            [evt.target.name]: evt.target.name
+            [evt.target.name]: evt.target.value
         });
     };
 
@@ -23,8 +23,9 @@ class SignupForm extends Component {
             await userService.signup(this.state);
             this.props.handleSignupOrLogin();
             this.props.history.push("/");
+            console.log(this.props.history);
         } catch (err) {
-            this.props.updateMessage(err.message);
+            console.log(err);
         }
     };
 
@@ -105,6 +106,10 @@ class SignupForm extends Component {
                         >
                             Submit
                         </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link to="/" className="btn btn-outline-light mt-4">
+                            Cancel
+                        </Link>
                     </form>
                 </div>
             </div>

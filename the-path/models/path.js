@@ -16,7 +16,7 @@ const itinerarySchema = new Schema(
     }
 );
 
-const tripSchema = new Schema(
+const PathSchema = new Schema(
     {
         country: {
             type: String,
@@ -31,8 +31,8 @@ const tripSchema = new Schema(
             type: Date,
             required: true
         },
-        Flight1: String,
-        Flight2: String,
+        Flight1: Date,
+        Flight2: Date,
         Notes: String,
         Itinerary: [itinerarySchema],
         Places: {
@@ -49,4 +49,4 @@ const tripSchema = new Schema(
     }
 );
 
-module.exports = mongoose.model("Trip", tripSchema);
+module.exports = mongoose.model("Path", PathSchema);

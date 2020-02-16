@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import SignupForm from "../../components/SignupForm/SignupForm";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 
-export default function Signup() {
+function Signup(props) {
     return (
         <div>
             <NavBar />
-            <SignupForm />
+            <SignupForm {...props} />
             <Footer />
         </div>
     );
 }
+
+export default Signup;

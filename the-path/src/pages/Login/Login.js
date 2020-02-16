@@ -3,11 +3,11 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 
-export default function Login() {
+export default function Login(props) {
     return (
         <div>
             <NavBar />
-            <LoginForm />
+            <LoginForm {...props} />
             <Footer />
         </div>
     );

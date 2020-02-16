@@ -20,6 +20,7 @@ function Main(props) {
                     autem exercitationem ipsa quis, iusto eaque a mollitia?
                 </h4>
             </div>
+            <br />
             <Footer />
         </div>
     );

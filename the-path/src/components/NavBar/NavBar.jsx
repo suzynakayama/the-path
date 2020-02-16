@@ -15,6 +15,10 @@ export default function NavBar(props) {
             {props.user ? (
                 <div className="d-flex justify-content-end align-items-center footer-span left w-40 mt-4">
                     <Link to="/paths" className="NavBar-link">
+                        Search
+                    </Link>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <Link to="/paths" className="NavBar-link">
                         My Paths
                     </Link>
                     &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -39,6 +43,7 @@ export default function NavBar(props) {
                     <Link to="/" className="NavBar-link">
                         Home
                     </Link>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <Link to="/about" className="NavBar-link">
                         About
                     </Link>

@@ -8,6 +8,7 @@ function createJWT(user) {
 }
 
 async function signup(req, res) {
+    console.log("inside controller");
     const user = new User(req.body);
     try {
         await user.save();
