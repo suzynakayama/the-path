@@ -35,7 +35,37 @@ async function login(req, res) {
     }
 }
 
+async function updateUser(req, res) {
+    console.log(req.body);
+    await User.findOne({ email: req.body.email }, (err, user) => {
+        console.log(user);
+        user.name = req.body.name;
+        user.email = req.body.email;
+        try {
+            user.save();
+            const token = createJWT(user);
+            res.json({ token });
+        } catch (err) {
+            res.status(400).json(err);
+        }
+    });
+}
+
+async function deleteUser(req, res) {
+    await User.findOne({ email: req.body.email }, (err, user) => {
+        try {
+            user.remove();
+            res.status(200).json({ message: "User deleted!" });
+            res.redirect("/");
+        } catch (err) {
+            res.status(400).json({ err });
+        }
+    });
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    updateUser,
+    deleteUser
 };

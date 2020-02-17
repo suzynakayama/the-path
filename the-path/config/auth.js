@@ -3,8 +3,9 @@ const SECRET = process.env.SECRET;
 
 module.exports = function(req, res, next) {
     //add the header
-    let token = req.query.token || req.body.token;
+    let token = req.get("Authorization") || req.query.token || req.body.token;
     if (token) {
+        token = token.replace("Bearer ", "");
         jwt.verify(token, SECRET, (err, decoded) => {
             if (err) {
                 next(err);

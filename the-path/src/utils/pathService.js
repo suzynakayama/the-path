@@ -19,15 +19,19 @@ function createPath(path) {
             Authorization: "Bearer " + tokenService.getToken()
         },
         body: JSON.stringify(path)
-    }).then(res => {
-        if (res.ok) return res.json();
-        throw new Error(
-            "Sorry, something wrong happened and the new path was not added."
-        );
-    });
+    })
+        .then(res => {
+            console.log("inside create service");
+            console.log(res);
+            if (res.ok) return res.json();
+            throw new Error(
+                "Sorry, something wrong happened and the new path was not added."
+            );
+        })
+        .then(data => getAllPaths());
 }
 
-function getAllPaths(userId) {
+function getAllPaths() {
     return fetch(BASE_URL, {
         method: "GET",
         headers: {
@@ -35,6 +39,7 @@ function getAllPaths(userId) {
         }
     }).then(res => {
         if (res.ok) return res.json();
+        // (res.ok) return JSON.parse();
         throw new Error("Database Error");
     });
 }
@@ -51,8 +56,18 @@ function getOnePath(id) {
     });
 }
 
+function deletePath(pathId) {
+    return fetch(`${BASE_URL}/${pathId}`, {
+        method: "DELETE"
+    }).then(res => {
+        if (res.ok) return res.json();
+        throw new Error("Sorry, this path is too good to be deleted!");
+    });
+}
+
 export default {
     createPath,
     getAllPaths,
-    getOnePath
+    getOnePath,
+    deletePath
 };

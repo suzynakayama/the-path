@@ -13,7 +13,11 @@ export default function NavBar(props) {
                 />
             </div>
             {props.user ? (
-                <div className="d-flex justify-content-end align-items-center footer-span left w-40 mt-4">
+                <div className="d-flex justify-content-end align-items-center footer-span nav-left mt-4">
+                    <Link to="/" className="NavBar-link">
+                        Home
+                    </Link>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <Link to="/paths" className="NavBar-link">
                         Search
                     </Link>

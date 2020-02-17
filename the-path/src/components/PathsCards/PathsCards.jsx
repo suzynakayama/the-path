@@ -12,7 +12,8 @@ class PathsCards extends Component {
             from: new Date(),
             to: new Date(),
             notes: "",
-            itinerary: []
+            itinerary: [],
+            user: ""
         };
     }
 
@@ -39,10 +40,26 @@ class PathsCards extends Component {
         try {
             await pathService.createPath(this.state);
             this.props.history.push("/paths");
+            // this.setState({
+            //     country: "",
+            //     from: new Date(),
+            //     to: new Date(),
+            //     notes: "",
+            //     itinerary: [],
+            //     user: ""
+            // });
         } catch (err) {
             console.log(err);
         }
     };
+
+    componentDidMount() {
+        this.setState({ user: this.props.user._id });
+    }
+
+    // async componentDidUpdate() {
+    //     await pathService.getAllPaths();
+    // }
 
     render() {
         return (
@@ -51,11 +68,14 @@ class PathsCards extends Component {
                     type="button"
                     data-toggle="modal"
                     data-target="#newPath"
-                    className="btn btn-outline-info mt-4"
+                    className="btn btn-outline-info mt-4 mr-5 right"
                 >
                     Add Path
                 </button>
-                <div className="card-deck">
+                <br />
+                <br />
+                <br />
+                <div className="d-flex justify-content-around flex-wrap">
                     {this.props.paths.map(path => (
                         <PathCard key={path.id} path={path} />
                     ))}
@@ -65,6 +85,7 @@ class PathsCards extends Component {
                     className="modal mx-auto"
                     tabindex="-1"
                     role="dialog"
+                    ref={this.modalRef}
                 >
                     <div
                         className="modal-dialog modal-dialog-centered"
@@ -83,8 +104,9 @@ class PathsCards extends Component {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <form className="" onSubmit={this.handleSubmit}>
+                                <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
+                                        {/* TODO input for images */}
                                         <label
                                             for="country"
                                             className="d-block"
@@ -130,6 +152,7 @@ class PathsCards extends Component {
                                         <button
                                             type="submit"
                                             className="btn btn-outline-light mt-4"
+                                            onClick={this.handleSubmit}
                                             data-dismiss="modal"
                                         >
                                             Submit

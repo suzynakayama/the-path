@@ -6,8 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 class OnePath extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             day: new Date(),
             city: "",
@@ -16,7 +16,7 @@ class OnePath extends Component {
         };
     }
 
-    path = this.props.path(this.props.match.params.id);
+    path = this.props.getPath(this.props.path._id);
 
     handleChange = evt => {
         this.setState({

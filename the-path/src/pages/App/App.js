@@ -31,15 +31,29 @@ class App extends Component {
         this.setState({ user: null });
     };
 
-    getPath = id => {
-        return this.state.paths.find(id);
+    handleUpdatePaths = paths => {
+        this.setState({ paths });
+    };
+
+    getPath = evt => {
+        return this.setState({ current: evt.target.dataset.id });
     };
 
     // Lifecycle Method
     async componentDidMount() {
+        if (this.state.user) {
+            const paths = await pathService.getAllPaths();
+            if (paths.length) {
+                this.setState({ paths: paths });
+            }
+        }
+    }
+
+    async componentDidUpdate() {
         const paths = await pathService.getAllPaths();
-        console.log(paths);
-        this.setState({ paths });
+        if (paths.length) {
+            this.setState({ paths: paths });
+        }
     }
 
     render() {
@@ -96,6 +110,7 @@ class App extends Component {
                                     handleLogout={this.handleLogout}
                                     user={this.state.user}
                                     paths={this.state.paths}
+                                    handleUpdatePaths={this.handleUpdatePaths}
                                 />
                             ) : (
                                 <Redirect to="/login" />
@@ -110,7 +125,8 @@ class App extends Component {
                                 {...props}
                                 handleLogout={this.handleLogout}
                                 user={this.state.user}
-                                path={this.getPath}
+                                paths={this.state.paths}
+                                getPath={this.getPath}
                             />
                         )}
                     />

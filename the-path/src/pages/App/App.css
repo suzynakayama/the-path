@@ -8,3 +8,8 @@
     color: white;
     box-shadow: 3px 3px 10px #ccc;
 }
+
+.right {
+    position: relative;
+    right: -30%;
+}
