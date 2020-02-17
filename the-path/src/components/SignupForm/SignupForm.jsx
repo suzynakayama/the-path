@@ -23,7 +23,6 @@ class SignupForm extends Component {
             await userService.signup(this.state);
             this.props.handleSignupOrLogin();
             this.props.history.push("/");
-            console.log(this.props.history);
         } catch (err) {
             console.log(err);
         }
@@ -79,7 +78,7 @@ class SignupForm extends Component {
                                 Password:
                             </label>
                             <input
-                                type="text"
+                                type="password"
                                 className="form-control col-sm-6 mx-auto mb-4"
                                 id="password"
                                 value={this.state.password}
@@ -92,7 +91,7 @@ class SignupForm extends Component {
                                 Confirm Password:
                             </label>
                             <input
-                                type="text"
+                                type="password"
                                 className="form-control col-sm-6 mx-auto mb-4"
                                 id="confPass"
                                 value={this.state.passwordConf}

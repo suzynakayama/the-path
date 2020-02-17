@@ -28,7 +28,7 @@ async function createPath(req, res) {
 
 async function showPath(req, res) {
     try {
-        let path = await Path.findOne();
+        let path = await Path.findOne({ id: req.params.id });
         res.json(path);
     } catch (err) {
         res.json({ err });

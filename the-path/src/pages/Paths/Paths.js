@@ -10,7 +10,7 @@ function Paths(props) {
             <br />
             <div className="main-line"></div>
             <br />
-            <PathsCards />
+            <PathsCards {...props} />
             <br />
             <Footer />
         </div>

@@ -20,7 +20,6 @@ class LoginPage extends Component {
             await userService.login(this.state);
             this.props.handleSignupOrLogin();
             this.props.history.push("/");
-            console.log(this.props.history);
         } catch (err) {
             // Use a modal or toast in your apps instead of alert
             //"Invalid Credentials!";
@@ -57,7 +56,7 @@ class LoginPage extends Component {
                                 Password:
                             </label>
                             <input
-                                type="text"
+                                type="password"
                                 className="form-control col-sm-6 mx-auto mb-4"
                                 id="password"
                                 value={this.state.password}

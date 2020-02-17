@@ -9,7 +9,7 @@ function checkAuth(req, res, next) {
 
 router.use(require("../../config/auth"));
 router.get("/", pathsCtrl.index);
-router.post("/", checkAuth, pathsCtrl.createPath);
+router.post("/", pathsCtrl.createPath);
 router.get("/:id", pathsCtrl.showPath);
 router.put("/:id", pathsCtrl.updatePath);
 router.delete("/:id", pathsCtrl.deletePath);

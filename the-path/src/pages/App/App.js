@@ -22,24 +22,25 @@ class App extends Component {
     }
 
     // Helper methods
-    handleSignupOrLogin() {
+    handleSignupOrLogin = () => {
         this.setState({ user: userService.getUser() });
-    }
+    };
 
-    handleLogout() {
+    handleLogout = () => {
         userService.logout();
         this.setState({ user: null });
-    }
+    };
 
-    // getPath(idx) {
-    //     return paths[idx];
-    // }
+    getPath = id => {
+        return this.state.paths.find(id);
+    };
 
     // Lifecycle Method
-    // async componentDidMount() {
-    //     const paths = await pathService.getAllPaths();
-    //     this.setState({ paths });
-    // }
+    async componentDidMount() {
+        const paths = await pathService.getAllPaths();
+        console.log(paths);
+        this.setState({ paths });
+    }
 
     render() {
         return (
@@ -88,9 +89,10 @@ class App extends Component {
                     <Route
                         exact
                         path="/paths"
-                        render={() =>
+                        render={({ history }) =>
                             userService.getUser() ? (
                                 <Paths
+                                    history={history}
                                     handleLogout={this.handleLogout}
                                     user={this.state.user}
                                     paths={this.state.paths}
@@ -102,7 +104,7 @@ class App extends Component {
                     />
                     <Route
                         exact
-                        path="/paths/:idx"
+                        path="/paths/:id"
                         render={props => (
                             <OnePath
                                 {...props}

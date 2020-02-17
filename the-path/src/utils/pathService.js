@@ -39,7 +39,20 @@ function getAllPaths(userId) {
     });
 }
 
+function getOnePath(id) {
+    return fetch(BASE_URL + `${id}`, {
+        method: "GET",
+        headers: {
+            Authorization: "Bearer " + tokenService.getToken()
+        }
+    }).then(res => {
+        if (res.ok) return res.json();
+        throw new Error("Database Error");
+    });
+}
+
 export default {
     createPath,
-    getAllPaths
+    getAllPaths,
+    getOnePath
 };

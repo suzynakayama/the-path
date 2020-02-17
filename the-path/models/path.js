@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const itinerarySchema = new Schema(
     {
         day: Number,
-        cities: String,
+        city: String,
         notes: String,
-        Places: {
+        places: {
             type: Schema.Types.ObjectId,
             ref: "Place"
         }
@@ -22,7 +22,6 @@ const PathSchema = new Schema(
             type: String,
             required: true
         },
-        city: String,
         from: {
             type: Date,
             required: true
@@ -31,14 +30,9 @@ const PathSchema = new Schema(
             type: Date,
             required: true
         },
-        Flight1: Date,
-        Flight2: Date,
-        Notes: String,
-        Itinerary: [itinerarySchema],
-        Places: {
-            type: Schema.Types.ObjectId,
-            ref: "Place"
-        },
+        image: String,
+        notes: String,
+        itinerary: [itinerarySchema],
         user: {
             type: Schema.Types.ObjectId,
             ref: "User"
