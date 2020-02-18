@@ -13,3 +13,8 @@
     position: relative;
     right: -30%;
 }
+
+.scroll {
+    max-height: 750px;
+    overflow-y: scroll;
+}

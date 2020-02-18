@@ -4,29 +4,54 @@ import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import pathService from "../../utils/pathService";
 
 class OnePath extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            day: new Date(),
-            city: "",
-            notes: "",
-            places: []
+            path: {},
+            form: {
+                day: new Date(),
+                city: "",
+                notes: "",
+                places: []
+            }
         };
     }
 
-    path = this.props.getPath(this.props.path._id);
+    async componentDidMount() {
+        let path = await this.getPath(this.props.match.params.id);
+        this.setState({
+            ...this.state,
+            path: path
+        });
+    }
+
+    getPath = async id => {
+        let path = await pathService.getOnePath(id);
+        path.from = path.from.slice(0, 10);
+        path.to = path.to.slice(0, 10);
+        return path;
+    };
 
     handleChange = evt => {
         this.setState({
-            [evt.target.name]: evt.target.value
+            ...this.state,
+            form: {
+                ...this.state.form,
+                [evt.target.name]: evt.target.value
+            }
         });
     };
 
     handleDate = date => {
         this.setState({
-            from: date
+            ...this.state,
+            form: {
+                ...this.state.form,
+                from: date
+            }
         });
     };
 
@@ -40,63 +65,97 @@ class OnePath extends Component {
                 <br />
                 <div className="main-line"></div>
                 <br />
-                <h2 className="text-center">{this.path.country}</h2>
-                <br />
-                <img className="mx-auto" src="" alt="" />
-                <br />
-                <h4>From: {this.path.from}</h4>
-                <br />
-                <h4>To: {this.path.to}</h4>
-                <br />
-                <h4>Notes: {this.path.notes}</h4>
-                <br />
-                <button
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#newItinerary"
-                    className="btn btn-outline-light mt-4"
-                >
-                    Add Itinerary
-                </button>
-                {this.path.itinerary.length ? (
-                    this.path.itinerary.map(one => {
-                        return (
-                            <>
-                                <h4>Day {one.day}</h4>
-                                <br />
-                                <h4>City: {one.city}</h4>
-                                <br />
-                                {one.places
-                                    ? one.places.map(place => {
-                                          return (
-                                              <>
-                                                  <h4>Place: {place.name}</h4>
-                                                  <br />
-                                                  <img
-                                                      src={place.image}
-                                                      alt=""
-                                                  />
-                                                  <br />
-                                                  <h4>
-                                                      Location: {place.location}
-                                                  </h4>
-                                              </>
-                                          );
-                                      })
-                                    : ""}
-                                <h4>Notes:</h4>
-                                <br />
-                                <p>{one.notes}</p>
-                            </>
-                        );
-                    })
-                ) : (
-                    <h2>No Itinerary Yet.</h2>
-                )}
+                <div className="m-5 p-5 border rounded col-sm-8 mx-auto green">
+                    <br />
+                    <br />
+                    {this.state.path ? (
+                        <>
+                            <h2 className="text-center">
+                                {this.state.path.country}
+                            </h2>
+                            <br />
+                            <img className="mx-auto" src="" alt="" />
+                            <br />
+                            <h4>From: {this.state.path.from}</h4>
+                            <br />
+                            <h4>To: {this.state.path.to}</h4>
+                            <br />
+                            {this.state.path.notes ? (
+                                <h4>Notes: {this.state.path.notes}</h4>
+                            ) : (
+                                ""
+                            )}
+                            <br />
+                            <button
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#newItinerary"
+                                className="btn btn-outline-light mt-4"
+                            >
+                                Add Itinerary
+                            </button>
+                            {this.state.path.itinerary ? (
+                                this.state.path.itinerary.length ? (
+                                    this.state.path.itinerary.map(one => {
+                                        return (
+                                            <>
+                                                <h4>Day {one.day}</h4>
+                                                <br />
+                                                <h4>City: {one.city}</h4>
+                                                <br />
+                                                {one.places
+                                                    ? one.places.map(place => {
+                                                          return (
+                                                              <>
+                                                                  <h4>
+                                                                      Place:{" "}
+                                                                      {
+                                                                          place.name
+                                                                      }
+                                                                  </h4>
+                                                                  <br />
+                                                                  <img
+                                                                      src={
+                                                                          place.image
+                                                                      }
+                                                                      alt={
+                                                                          place.name
+                                                                      }
+                                                                  />
+                                                                  <br />
+                                                                  <h4>
+                                                                      Location:{" "}
+                                                                      {
+                                                                          place.location
+                                                                      }
+                                                                  </h4>
+                                                              </>
+                                                          );
+                                                      })
+                                                    : ""}
+                                                <h4>Notes:</h4>
+                                                <br />
+                                                <p>{one.notes}</p>
+                                            </>
+                                        );
+                                    })
+                                ) : (
+                                    ""
+                                )
+                            ) : (
+                                <h2>No itineraries yet.</h2>
+                            )}
+                        </>
+                    ) : (
+                        <h2>Loading...</h2>
+                    )}
+                    <br />
+                    <br />
+                </div>
                 <div
                     id="newItinerary"
                     className="modal mx-auto"
-                    tabindex="-1"
+                    tabIndex="-1"
                     role="dialog"
                 >
                     <div
@@ -120,11 +179,11 @@ class OnePath extends Component {
                                     <div className="form-group">
                                         <label className="d-block">Day:</label>
                                         <DatePicker
-                                            selected={this.state.day}
+                                            selected={this.state.form.day}
                                             onChange={this.handleDate}
                                         />
                                         <label
-                                            for="city"
+                                            htmlFor="city"
                                             className="mt-4 mb-4 d-block"
                                         >
                                             City:
@@ -133,13 +192,13 @@ class OnePath extends Component {
                                             type="text"
                                             className="form-control"
                                             id="city"
-                                            value={this.state.city}
+                                            value={this.state.form.city}
                                             name="city"
                                             onChange={this.handleChange}
                                         />
                                         <label
                                             className="mt-4 mb-4 d-block"
-                                            for="notes"
+                                            htmlFor="notes"
                                         >
                                             Notes:
                                         </label>
@@ -147,7 +206,7 @@ class OnePath extends Component {
                                             type="textarea"
                                             className="form-control"
                                             id="notes"
-                                            value={this.state.notes}
+                                            value={this.state.form.notes}
                                             name="notes"
                                             onChange={this.handleChange}
                                         />

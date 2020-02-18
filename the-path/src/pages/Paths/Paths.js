@@ -25,8 +25,6 @@ class Paths extends Component {
                 <br />
                 <PathsCards
                     user={this.props.user}
-                    paths={this.props.paths}
-                    handleUpdatePaths={this.props.handleUpdatePaths}
                     history={this.props.history}
                 />
                 <br />

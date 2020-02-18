@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Signup from "../Signup/Signup";
 import Login from "../Login/Login";
 import userService from "../../utils/userService";
-import tokenService from "../../utils/tokenService";
 import pathService from "../../utils/pathService";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -16,8 +15,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            user: userService.getUser(),
-            paths: []
+            user: userService.getUser()
         };
     }
 
@@ -31,30 +29,12 @@ class App extends Component {
         this.setState({ user: null });
     };
 
-    handleUpdatePaths = paths => {
-        this.setState({ paths });
-    };
-
-    getPath = evt => {
-        return this.setState({ current: evt.target.dataset.id });
-    };
-
-    // Lifecycle Method
-    async componentDidMount() {
-        if (this.state.user) {
-            const paths = await pathService.getAllPaths();
-            if (paths.length) {
-                this.setState({ paths: paths });
-            }
-        }
-    }
-
-    async componentDidUpdate() {
-        const paths = await pathService.getAllPaths();
-        if (paths.length) {
-            this.setState({ paths: paths });
-        }
-    }
+    // getPath = async id => {
+    //     console.log("inside getPath");
+    //     let one = await pathService.getOnePath(id);
+    //     console.log(one);
+    //     return one;
+    // };
 
     render() {
         return (
@@ -109,8 +89,6 @@ class App extends Component {
                                     history={history}
                                     handleLogout={this.handleLogout}
                                     user={this.state.user}
-                                    paths={this.state.paths}
-                                    handleUpdatePaths={this.handleUpdatePaths}
                                 />
                             ) : (
                                 <Redirect to="/login" />
@@ -125,8 +103,7 @@ class App extends Component {
                                 {...props}
                                 handleLogout={this.handleLogout}
                                 user={this.state.user}
-                                paths={this.state.paths}
-                                getPath={this.getPath}
+                                // getPath={this.getPath}
                             />
                         )}
                     />

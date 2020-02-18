@@ -21,24 +21,28 @@ async function createPath(req, res) {
     }
 }
 
-// async function showPath(req, res) {
-//     try {
-//         let path = await Path.findOne({ id: req.params.id });
-//         res.status(200).json(path);
-//     } catch (err) {
-//         res.status(400).json({ err });
-//     }
-// }
+async function showPath(req, res) {
+    try {
+        console.log("inside show");
+        let path = await Path.findOne({ _id: req.params.id });
+        res.status(200).json(path);
+    } catch (err) {
+        res.status(400).json({ err });
+    }
+}
 
-// async function updatePath(req, res) {
-//     try {
-//         await Path.findBy({ id: req.params.id })
-//             .then(Path.updateOne(req.body))
-//             .then(res => res.status(200).json());
-//     } catch (err) {
-//         res.status(400).json({ err });
-//     }
-// }
+async function updatePath(req, res) {
+    try {
+        const updatedPath = await Path.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+        res.status(200).json(updatedPath);
+    } catch (err) {
+        res.status(400).json({ err });
+    }
+}
 
 async function deletePath(req, res) {
     try {
@@ -52,7 +56,7 @@ async function deletePath(req, res) {
 module.exports = {
     index,
     createPath,
-    // showPath,
-    // updatePath,
+    showPath,
+    updatePath,
     deletePath
 };

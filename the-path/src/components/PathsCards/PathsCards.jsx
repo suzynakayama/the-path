@@ -8,38 +8,66 @@ class PathsCards extends Component {
     constructor() {
         super();
         this.state = {
-            country: "",
-            from: new Date(),
-            to: new Date(),
-            notes: "",
-            itinerary: [],
-            user: ""
+            paths: [],
+            form: {
+                country: "",
+                from: new Date(),
+                to: new Date(),
+                notes: "",
+                itinerary: [],
+                user: ""
+            }
         };
     }
 
     handleChange = evt => {
         this.setState({
-            [evt.target.name]: evt.target.value
+            ...this.state,
+            form: {
+                ...this.state.form,
+                [evt.target.name]: evt.target.value
+            }
         });
     };
 
     handleFromDate = date => {
         this.setState({
-            from: date
+            ...this.state,
+            form: {
+                ...this.state.form,
+                from: date
+            }
         });
     };
 
     handleToDate = date => {
         this.setState({
-            to: date
+            ...this.state,
+            form: {
+                ...this.state.form,
+                to: date
+            }
         });
+    };
+
+    handleUpdatePaths = async () => {
+        const paths = await pathService.getAllPaths();
+        if (paths.length) {
+            this.setState({
+                ...this.state,
+                paths: paths
+            });
+        }
     };
 
     handleSubmit = async evt => {
         evt.preventDefault();
         try {
-            await pathService.createPath(this.state);
+            console.log(this.state.form);
+            await pathService.createPath(this.state.form);
+            console.log("after create");
             this.props.history.push("/paths");
+            this.handleUpdatePaths();
             // this.setState({
             //     country: "",
             //     from: new Date(),
@@ -53,17 +81,26 @@ class PathsCards extends Component {
         }
     };
 
-    componentDidMount() {
-        this.setState({ user: this.props.user._id });
+    async componentDidMount() {
+        this.setState({
+            ...this.state,
+            form: {
+                ...this.state.form,
+                user: this.props.user._id
+            }
+        });
+        const paths = await pathService.getAllPaths();
+        if (paths.length) {
+            this.setState({
+                ...this.state,
+                paths: paths
+            });
+        }
     }
-
-    // async componentDidUpdate() {
-    //     await pathService.getAllPaths();
-    // }
 
     render() {
         return (
-            <div>
+            <div className="scroll">
                 <button
                     type="button"
                     data-toggle="modal"
@@ -76,14 +113,14 @@ class PathsCards extends Component {
                 <br />
                 <br />
                 <div className="d-flex justify-content-around flex-wrap">
-                    {this.props.paths.map(path => (
-                        <PathCard key={path.id} path={path} />
+                    {this.state.paths.map(path => (
+                        <PathCard key={path._id} path={path} />
                     ))}
                 </div>
                 <div
                     id="newPath"
                     className="modal mx-auto"
-                    tabindex="-1"
+                    tabIndex="-1"
                     role="dialog"
                     ref={this.modalRef}
                 >
@@ -108,7 +145,7 @@ class PathsCards extends Component {
                                     <div className="form-group">
                                         {/* TODO input for images */}
                                         <label
-                                            for="country"
+                                            htmlFor="country"
                                             className="d-block"
                                         >
                                             Country:
@@ -117,7 +154,7 @@ class PathsCards extends Component {
                                             type="text"
                                             className="form-control"
                                             id="country"
-                                            value={this.state.country}
+                                            value={this.state.form.country}
                                             name="country"
                                             onChange={this.handleChange}
                                         />
@@ -125,19 +162,19 @@ class PathsCards extends Component {
                                             From:
                                         </label>
                                         <DatePicker
-                                            selected={this.state.from}
+                                            selected={this.state.form.from}
                                             onChange={this.handleFromDate}
                                         />
                                         <label className="mt-4 d-block">
                                             To:
                                         </label>
                                         <DatePicker
-                                            selected={this.state.to}
+                                            selected={this.state.form.to}
                                             onChange={this.handleToDate}
                                         />
                                         <label
                                             className="mt-4 mb-4 d-block"
-                                            for="notes"
+                                            htmlFor="notes"
                                         >
                                             Notes:
                                         </label>
@@ -145,7 +182,7 @@ class PathsCards extends Component {
                                             type="textarea"
                                             className="form-control"
                                             id="notes"
-                                            value={this.state.notes}
+                                            value={this.state.form.notes}
                                             name="notes"
                                             onChange={this.handleChange}
                                         />

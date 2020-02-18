@@ -1,4 +1,3 @@
-const cors = require("cors");
 const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
@@ -9,7 +8,6 @@ const app = express();
 require("dotenv").config();
 require("./config/database");
 
-app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 

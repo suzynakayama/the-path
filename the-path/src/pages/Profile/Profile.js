@@ -21,7 +21,6 @@ export class Profile extends Component {
     handleSubmit = async evt => {
         evt.preventDefault();
         try {
-            console.log(this.state);
             await userService.updateUser(this.state);
             this.props.history.push("/profile");
         } catch (err) {
@@ -29,7 +28,8 @@ export class Profile extends Component {
         }
     };
 
-    handleDelete = async () => {
+    handleDelete = async evt => {
+        evt.preventDefault();
         try {
             console.log(this.state);
             await userService.deleteUser(this.state);
@@ -66,7 +66,7 @@ export class Profile extends Component {
                         className="form-horizontal"
                     >
                         <div className="form-group">
-                            <label for="name" className="d-block mb-4">
+                            <label htmlFor="name" className="d-block mb-4">
                                 Name:
                             </label>
                             <input
@@ -77,7 +77,7 @@ export class Profile extends Component {
                                 name="name"
                                 onChange={this.handleChange}
                             />
-                            <label for="email" className="d-block mb-4">
+                            <label htmlFor="email" className="d-block mb-4">
                                 Email:
                             </label>
                             <input

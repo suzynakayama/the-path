@@ -1,12 +1,3 @@
-// export function getAllPaths() {
-//     return fetch("/paths").then(res => {
-//         console.log(res);
-//         res.json();
-//     });
-// }
-
-// export default getAllPaths;
-
 import tokenService from "../utils/tokenService";
 
 const BASE_URL = "/api/paths";
@@ -20,7 +11,7 @@ function createPath(path) {
         },
         body: JSON.stringify(path)
     })
-        .then(res => {
+        .then(async res => {
             console.log("inside create service");
             console.log(res);
             if (res.ok) return res.json();
@@ -39,18 +30,18 @@ function getAllPaths() {
         }
     }).then(res => {
         if (res.ok) return res.json();
-        // (res.ok) return JSON.parse();
         throw new Error("Database Error");
     });
 }
 
 function getOnePath(id) {
-    return fetch(BASE_URL + `${id}`, {
+    return fetch(BASE_URL + `/${id}`, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + tokenService.getToken()
         }
     }).then(res => {
+        console.log(res);
         if (res.ok) return res.json();
         throw new Error("Database Error");
     });
