@@ -1,5 +1,4 @@
 const Path = require("../models/path");
-const User = require("../models/user");
 
 async function index(req, res) {
     try {
@@ -7,7 +6,6 @@ async function index(req, res) {
         let paths = await Path.find({ user: user }).sort("country");
         res.status(200).json(paths);
     } catch (err) {
-        console.log(err);
         res.status(400).json({ err });
     }
 }
@@ -23,7 +21,6 @@ async function createPath(req, res) {
 
 async function showPath(req, res) {
     try {
-        console.log("inside show");
         let path = await Path.findOne({ _id: req.params.id });
         res.status(200).json(path);
     } catch (err) {

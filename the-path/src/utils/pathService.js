@@ -12,8 +12,6 @@ function createPath(path) {
         body: JSON.stringify(path)
     })
         .then(async res => {
-            console.log("inside create service");
-            console.log(res);
             if (res.ok) return res.json();
             throw new Error(
                 "Sorry, something wrong happened and the new path was not added."
@@ -35,20 +33,19 @@ function getAllPaths() {
 }
 
 function getOnePath(id) {
-    return fetch(BASE_URL + `/${id}`, {
+    return fetch(`${BASE_URL}/${id}`, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + tokenService.getToken()
         }
     }).then(res => {
-        console.log(res);
         if (res.ok) return res.json();
         throw new Error("Database Error");
     });
 }
 
-function deletePath(pathId) {
-    return fetch(`${BASE_URL}/${pathId}`, {
+function deletePath(id) {
+    return fetch(`${BASE_URL}/${id}`, {
         method: "DELETE"
     }).then(res => {
         if (res.ok) return res.json();

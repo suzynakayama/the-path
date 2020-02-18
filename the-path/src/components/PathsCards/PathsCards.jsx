@@ -63,19 +63,20 @@ class PathsCards extends Component {
     handleSubmit = async evt => {
         evt.preventDefault();
         try {
-            console.log(this.state.form);
             await pathService.createPath(this.state.form);
-            console.log("after create");
             this.props.history.push("/paths");
             this.handleUpdatePaths();
-            // this.setState({
-            //     country: "",
-            //     from: new Date(),
-            //     to: new Date(),
-            //     notes: "",
-            //     itinerary: [],
-            //     user: ""
-            // });
+            this.setState({
+                ...this.state,
+                form: {
+                    ...this.state.form,
+                    country: "",
+                    from: new Date(),
+                    to: new Date(),
+                    notes: "",
+                    itinerary: []
+                }
+            });
         } catch (err) {
             console.log(err);
         }

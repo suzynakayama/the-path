@@ -29,13 +29,6 @@ class App extends Component {
         this.setState({ user: null });
     };
 
-    // getPath = async id => {
-    //     console.log("inside getPath");
-    //     let one = await pathService.getOnePath(id);
-    //     console.log(one);
-    //     return one;
-    // };
-
     render() {
         return (
             <div className="App mx-auto">
@@ -103,7 +96,6 @@ class App extends Component {
                                 {...props}
                                 handleLogout={this.handleLogout}
                                 user={this.state.user}
-                                // getPath={this.getPath}
                             />
                         )}
                     />

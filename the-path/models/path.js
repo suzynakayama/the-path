@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const itinerarySchema = new Schema(
     {
-        day: Number,
+        day: Date,
         city: String,
         notes: String,
         places: {
