@@ -9,8 +9,6 @@ function signup(user) {
         body: JSON.stringify(user)
     })
         .then(res => {
-            console.log("inside signup fetch");
-            console.log(res);
             if (res.ok) return res.json();
             throw new Error("Email already taken!");
         })
@@ -32,8 +30,6 @@ function login(creds) {
         body: JSON.stringify(creds)
     })
         .then(res => {
-            console.log("inside login fetch");
-            console.log(res);
             if (res.ok) return res.json();
             throw new Error("Oh! These credentials are not right!");
         })
@@ -47,7 +43,6 @@ function updateUser(user) {
         body: JSON.stringify(user)
     })
         .then(res => {
-            console.log(res);
             if (res.ok) return res.json();
             throw new Error("Couldn't update.");
         })
@@ -61,7 +56,6 @@ function deleteUser(user) {
         body: JSON.stringify(user)
     })
         .then(res => {
-            console.log(res);
             if (res.ok) return res.json();
             throw new Error("Couldn't delete.");
         })

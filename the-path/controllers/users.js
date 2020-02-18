@@ -38,7 +38,6 @@ async function login(req, res) {
 async function updateUser(req, res) {
     console.log(req.body);
     await User.findOne({ email: req.body.email }, (err, user) => {
-        console.log(user);
         user.name = req.body.name;
         user.email = req.body.email;
         try {
@@ -54,7 +53,6 @@ async function updateUser(req, res) {
 async function deleteUser(req, res) {
     await User.findOne({ email: req.body.email }, (err, user) => {
         try {
-            console.log(user);
             user.remove();
             res.status(200).json({ message: "User deleted!" });
         } catch (err) {

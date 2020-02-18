@@ -29,6 +29,10 @@ class App extends Component {
         this.setState({ user: null });
     };
 
+    handleDeleteProfile = () => {
+        this.setState({ user: null });
+    };
+
     render() {
         return (
             <div className="App mx-auto">
@@ -70,6 +74,7 @@ class App extends Component {
                             <Profile
                                 handleLogout={this.handleLogout}
                                 user={this.state.user}
+                                handleDeleteProfile={this.handleDeleteProfile}
                             />
                         )}
                     />
