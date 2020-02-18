@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pathService from "../../utils/pathService";
 import itineraryService from "../../utils/itineraryService";
+import "./OnePath.css";
 
 class OnePath extends Component {
     constructor(props) {
@@ -37,7 +38,6 @@ class OnePath extends Component {
             each.day = each.day.slice(0, 10);
             return each;
         });
-        console.log(path.itinerary);
         return path;
     };
 
@@ -51,12 +51,12 @@ class OnePath extends Component {
         });
     };
 
-    handleDate = date => {
+    handleDayDate = date => {
         this.setState({
             ...this.state,
             form: {
                 ...this.state.form,
-                from: date
+                day: date
             }
         });
     };
@@ -69,16 +69,14 @@ class OnePath extends Component {
     addItinerary = async evt => {
         evt.preventDefault();
         try {
-            console.log(this.state.form);
             await itineraryService.createItinerary(
                 this.props.match.params.id,
                 this.state.form
             );
-            console.log("after create");
             this.props.history.push(`/paths/${this.props.match.params.id}`);
-            this.getPath();
+            let path = await this.getPath(this.props.match.params.id);
             this.setState({
-                ...this.state,
+                path: path,
                 form: {
                     day: new Date(),
                     city: "",
@@ -91,6 +89,19 @@ class OnePath extends Component {
         }
     };
 
+    handleDeleteItinerary = async iti_id => {
+        await itineraryService.deleteItinerary(
+            this.props.match.params.id,
+            iti_id
+        );
+        this.props.history.push(`/paths/${this.props.match.params.id}`);
+        let path = await this.getPath(this.props.match.params.id);
+        this.setState({
+            ...this.state,
+            path: path
+        });
+    };
+
     render() {
         return (
             <div>
@@ -101,7 +112,7 @@ class OnePath extends Component {
                 <br />
                 <div className="main-line"></div>
                 <br />
-                <div className="m-5 p-5 border rounded col-sm-8 mx-auto green">
+                <div className="m-5 p-5 border rounded col-sm-8 mx-auto green scroll">
                     <br />
                     <br />
                     {this.state.path ? (
@@ -141,18 +152,31 @@ class OnePath extends Component {
                             {this.state.path.itinerary
                                 ? this.state.path.itinerary.length
                                     ? this.state.path.itinerary.map(one => (
-                                          <div key={one.id}>
-                                              <h4>Day: {one.day}</h4>
+                                          <div
+                                              className="border rounded mt-5 ml-3 mr-3 p-4 itinerary-div mx-auto"
+                                              key={one._id}
+                                          >
+                                              <button
+                                                  className="btn btn-outline-light right"
+                                                  onClick={() =>
+                                                      this.handleDeleteItinerary(
+                                                          one._id
+                                                      )
+                                                  }
+                                              >
+                                                  X
+                                              </button>
+                                              <h5>Day: {one.day}</h5>
                                               <br />
-                                              <h4>City: {one.city}</h4>
+                                              <h5>City: {one.city}</h5>
                                               <br />
                                               {one.places
                                                   ? one.places.map(place => (
-                                                        <div key={place.id}>
-                                                            <h4>
+                                                        <div key={place._id}>
+                                                            <h6>
                                                                 Place:{" "}
                                                                 {place.name}
-                                                            </h4>
+                                                            </h6>
                                                             <br />
                                                             <img
                                                                 src={
@@ -161,14 +185,15 @@ class OnePath extends Component {
                                                                 alt={place.name}
                                                             />
                                                             <br />
-                                                            <h4>
+                                                            <h6>
                                                                 Location:{" "}
                                                                 {place.location}
-                                                            </h4>
+                                                            </h6>
                                                         </div>
                                                     ))
                                                   : ""}
-                                              <h4>Notes:</h4>
+                                              <div className="line mb-2" />
+                                              <h5>Notes:</h5>
                                               <br />
                                               <p>{one.notes}</p>
                                           </div>
@@ -210,7 +235,7 @@ class OnePath extends Component {
                                         <label className="d-block">Day:</label>
                                         <DatePicker
                                             selected={this.state.form.day}
-                                            onChange={this.handleDate}
+                                            onChange={this.handleDayDate}
                                         />
                                         <label
                                             htmlFor="city"

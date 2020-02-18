@@ -54,9 +54,9 @@ async function updateUser(req, res) {
 async function deleteUser(req, res) {
     await User.findOne({ email: req.body.email }, (err, user) => {
         try {
+            console.log(user);
             user.remove();
             res.status(200).json({ message: "User deleted!" });
-            res.redirect("/");
         } catch (err) {
             res.status(400).json({ err });
         }

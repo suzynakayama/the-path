@@ -1,0 +1,9 @@
+.itinerary-div {
+    width: 70%;
+}
+
+.line {
+    background-color: rgb(7, 54, 7);
+    height: 1px;
+    width: 100%;
+}

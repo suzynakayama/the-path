@@ -24,7 +24,7 @@ function createItinerary(pathId, itinerary) {
 }
 
 function deleteItinerary(pathId, iti_id) {
-    return fetch(`${BASE_URL}/${pathId}/${iti_id}`, {
+    return fetch(`${BASE_URL}/${pathId}/itinerary/${iti_id}`, {
         method: "DELETE"
     }).then(res => {
         if (res.ok) return res.json();

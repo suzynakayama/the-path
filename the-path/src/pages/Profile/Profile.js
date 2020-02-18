@@ -31,9 +31,8 @@ export class Profile extends Component {
     handleDelete = async evt => {
         evt.preventDefault();
         try {
-            console.log(this.state);
-            await userService.deleteUser(this.state);
-            this.props.history.push("/");
+            await userService.deleteUser(this.props.user);
+            this.props.history.push("/signup");
         } catch (err) {
             console.log(err);
         }
