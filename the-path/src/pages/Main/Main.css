@@ -1,13 +1,8 @@
 .main-div {
     height: 300px;
     margin-top: -120px;
-    z-index: 1;
+    z-index: 21;
     background-color: darkgreen;
-    /* background: linear-gradient(
-        0deg,
-        rgb(25, 77, 28) 0%,
-        rgb(43, 218, 46) 100%
-    ); */
     color: white;
 }
 

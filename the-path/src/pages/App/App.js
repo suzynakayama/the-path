@@ -107,8 +107,9 @@ class App extends Component {
                     <Route
                         exact
                         path="/search"
-                        render={() => (
+                        render={props => (
                             <Search
+                                {...props}
                                 handleLogout={this.handleLogout}
                                 user={this.state.user}
                             />

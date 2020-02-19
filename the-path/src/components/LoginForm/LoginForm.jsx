@@ -30,7 +30,7 @@ class LoginPage extends Component {
     render() {
         return (
             <div className="mt-5">
-                <div className="m-5 p-5 border rounded col-sm-8 mx-auto green">
+                <div className="m-5 p-5 border rounded col-sm-6 mx-auto green">
                     <header>
                         <h2 className="mb-5 font-weight-bold">Login</h2>
                     </header>
@@ -38,26 +38,32 @@ class LoginPage extends Component {
                         className="form-horizontal"
                         onSubmit={this.handleSubmit}
                     >
-                        <div className="form-group">
-                            <label htmlFor="email" className="mb-4">
+                        <div className="form-group row mx-auto">
+                            <label
+                                htmlFor="email"
+                                className="col-sm-3 col-form-label"
+                            >
                                 Email:
                             </label>
                             <input
                                 type="text"
-                                className="form-control col-sm-6 mx-auto mb-4"
+                                className="form-control col-sm-6 mb-4"
                                 id="email"
                                 value={this.state.email}
                                 name="email"
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="password" className="mb-4">
+                        <div className="form-group row mx-auto">
+                            <label
+                                htmlFor="password"
+                                className="col-sm-3 col-form-label"
+                            >
                                 Password:
                             </label>
                             <input
                                 type="password"
-                                className="form-control col-sm-6 mx-auto mb-4"
+                                className="form-control col-sm-6 mb-4"
                                 id="password"
                                 value={this.state.password}
                                 name="password"
@@ -65,15 +71,11 @@ class LoginPage extends Component {
                             />
                         </div>
                         <div className="form-group">
-                            <div className="col-sm-12 text-center">
-                                <button className="btn btn-outline-light mt-4">
+                            <div className="d-flex justify-content-center">
+                                <button className="btn btn-outline-light">
                                     Log In
                                 </button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <Link
-                                    className="btn btn-outline-light mt-4"
-                                    to="/"
-                                >
+                                <Link className="a-btn ml-5 mt-3" to="/">
                                     Cancel
                                 </Link>
                             </div>

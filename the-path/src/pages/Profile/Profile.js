@@ -3,6 +3,7 @@ import userService from "../../utils/userService";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { Redirect } from "react-router-dom";
+import "./profile.css";
 
 export class Profile extends Component {
     constructor(props) {
@@ -54,51 +55,60 @@ export class Profile extends Component {
                     <br />
                     <div className="main-line"></div>
                     <br />
-                    <div className="m-5 p-5 border rounded col-sm-8 mx-auto green">
+                    <div className="m-5 p-5 border rounded col-sm-6 mx-auto green">
                         <header>
                             <h2>{this.props.user.name}'s Profile</h2>
                         </header>
-                        <br />
-                        <button
-                            className="btn btn-outline-light mt-4 mr-5 right"
-                            onClick={this.handleDelete}
-                        >
-                            Delete Account
-                        </button>
                         <br />
                         <form
                             onSubmit={this.handleSubmit}
                             className="form-horizontal"
                         >
-                            <div className="form-group">
-                                <label htmlFor="name" className="d-block mb-4">
+                            <div className="form-group row mx-auto">
+                                <label
+                                    htmlFor="name"
+                                    className="col-sm-3 col-form-label"
+                                >
                                     Name:
                                 </label>
                                 <input
                                     type="text"
-                                    className="form-control col-sm-6 mx-auto mb-4"
+                                    className="form-control col-sm-6 mb-4"
                                     id="name"
                                     value={this.state.name}
                                     name="name"
                                     onChange={this.handleChange}
                                 />
-                                <label htmlFor="email" className="d-block mb-4">
+                            </div>
+                            <div className="form-group row mx-auto">
+                                <label
+                                    htmlFor="email"
+                                    className="col-sm-3 col-form-label"
+                                >
                                     Email:
                                 </label>
                                 <input
                                     type="text"
-                                    className="form-control col-sm-6 mx-auto mb-4"
+                                    className="form-control col-sm-6 mb-4"
                                     id="email"
                                     value={this.state.email}
                                     email="email"
                                     onChange={this.handleChange}
                                 />
+                            </div>
+                            <div className="d-flex justify-content-center">
                                 <button
                                     type="submit"
                                     className="btn btn-outline-light mt-4"
                                     onClick={this.handleSubmit}
                                 >
                                     Update
+                                </button>
+                                <button
+                                    className="a-btn ml-5 mt-4"
+                                    onClick={this.handleDelete}
+                                >
+                                    Delete Account
                                 </button>
                             </div>
                         </form>

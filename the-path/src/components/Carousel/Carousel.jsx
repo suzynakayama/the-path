@@ -70,7 +70,9 @@ export default function Carousel() {
                 ></span>
                 <span className="sr-only">Previous</span>
             </a>
-            <h1 className="sriracha main-phrase">Plan your path...</h1>
+            <div className="main-phrase-bg rounded">
+                <h1 className="sriracha main-phrase">Plan your path...</h1>
+            </div>
             {/* <a
                 className="carousel-control-next"
                 href="#carouselExampleFade"

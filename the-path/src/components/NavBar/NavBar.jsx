@@ -18,7 +18,7 @@ export default function NavBar(props) {
                         Home
                     </Link>
                     &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <Link to="/paths" className="NavBar-link">
+                    <Link to="/search" className="NavBar-link">
                         Search
                     </Link>
                     &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
