@@ -28,7 +28,12 @@
 }
 
 .line {
-    background-color: rgb(7, 54, 7);
+    background-color: rgb(6, 43, 6);
     height: 1px;
     width: 100%;
+}
+
+.white,
+.white:hover {
+    color: white;
 }

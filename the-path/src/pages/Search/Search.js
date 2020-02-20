@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
+import pathService from "../../utils/pathService";
 import yelpAPI from "../../utils/yelpAPI";
-import googleAPI from "../../utils/googleAPI";
+//import googleAPI from "../../utils/googleAPI";
 import "./Search.css";
+// const imageThumbnail = require("image-thumbnail");
 
 class Search extends Component {
     constructor() {
@@ -13,8 +15,22 @@ class Search extends Component {
                 term: "",
                 location: ""
             },
-            places: []
+            places: [],
+            paths: {},
+            chosenPlace: ""
         };
+    }
+
+    async componentDidMount() {
+        const paths = await pathService.getAllPaths();
+        if (paths.length) {
+            this.setState({
+                ...this.state.searchRequest,
+                ...this.state.chosenPlace,
+                ...this.state.places,
+                paths: paths
+            });
+        }
     }
 
     // GOOGLE_API
@@ -38,6 +54,14 @@ class Search extends Component {
     // YELP_API
     getAPI = async evt => {
         evt.preventDefault();
+        if (this.state.places.length > 0) {
+            this.setState({
+                ...this.state.searchRequest,
+                ...this.state.chosenPlace,
+                ...this.state.paths,
+                places: []
+            });
+        }
         try {
             let searchRequestQuery = `term=${this.state.searchRequest.term}&location=${this.state.searchRequest.location}&limit=50`;
             let res = await yelpAPI.fetchAll(searchRequestQuery);
@@ -57,9 +81,10 @@ class Search extends Component {
                     term: "",
                     location: ""
                 },
-                places: fetchedPlaces
+                places: fetchedPlaces,
+                ...this.state.chosenPlace,
+                ...this.state.paths
             });
-            console.log(this.state.places);
         } catch (err) {
             console.log(err);
         }
@@ -71,8 +96,24 @@ class Search extends Component {
                 ...this.state.searchRequest,
                 [evt.target.name]: evt.target.value
             },
+            ...this.state.paths,
+            ...this.state.chosenPlace,
             ...this.state.places
         });
+    };
+
+    savePlace = async place => {
+        // place.thumb = await imageThumbnail(place.image);
+        this.setState({
+            chosenPlace: place,
+            ...this.state.searchRequest,
+            ...this.state.paths,
+            ...this.state.places
+        });
+    };
+
+    addToPath = pathId => {
+        pathService.getOnePathAndSave(pathId, this.state.chosenPlace);
     };
 
     render() {
@@ -86,7 +127,7 @@ class Search extends Component {
                 <div className="main-line"></div>
                 <br />
                 <div className="mt-5">
-                    <div className="m-5 p-5 border rounded col-sm-8 mx-auto green">
+                    <div className="m-5 p-5 border rounded col-sm-8 mx-auto green scroll">
                         <header>
                             <h2 className="mb-5 font-weight-bold">
                                 Find Places
@@ -115,7 +156,7 @@ class Search extends Component {
                                     type="text"
                                     className="form-control col-sm-4"
                                     value={this.state.searchRequest.term}
-                                    placeholder="Ex. coffee"
+                                    placeholder="Ex. museum"
                                     name="term"
                                     onChange={this.handleChange}
                                 />
@@ -131,36 +172,92 @@ class Search extends Component {
                         </form>
                         <div className="line mb-2" />
                         <div className="d-flex justify-content-around w-90 flex-wrap scroll">
-                            {this.state.places.length > 0
-                                ? this.state.places.map(onePlace => {
-                                      return (
-                                          <a
-                                              className="col-sm-3"
-                                              href={onePlace.url}
-                                          >
-                                              <div
-                                                  key={onePlace.name}
-                                                  className="place-div border rounded p-3 m-3"
-                                              >
-                                                  <h3>{onePlace.name}</h3>
+                            {this.state.places.length > 0 ? (
+                                this.state.places.map(onePlace => {
+                                    return (
+                                        <div
+                                            key={onePlace.phone}
+                                            className="col-sm-3 place-div border rounded p-3 m-3"
+                                        >
+                                            <h3>{onePlace.name}</h3>
 
-                                                  <img
-                                                      src={onePlace.image}
-                                                      alt={onePlace.name}
-                                                      className="place-image mt-2 mb-3"
-                                                  />
-                                                  <h6>{onePlace.phone}</h6>
-                                                  <p className="mt-3">
-                                                      {onePlace.location}
-                                                  </p>
-                                                  <button className="btn btn-outline-dark mt-2">
-                                                      Add to Itinerary
-                                                  </button>
-                                              </div>
-                                          </a>
-                                      );
-                                  })
-                                : ""}
+                                            <img
+                                                src={onePlace.image}
+                                                alt={onePlace.name}
+                                                className="place-image mt-2 mb-3"
+                                            />
+                                            <h6>{onePlace.phone}</h6>
+                                            <p className="mt-3">
+                                                {onePlace.location}
+                                            </p>
+                                            <a
+                                                className="d-block place-link white"
+                                                href={onePlace.url}
+                                            >
+                                                More
+                                            </a>
+                                            <button
+                                                type="button"
+                                                data-toggle="modal"
+                                                data-target="#newPlace"
+                                                className="btn btn-outline-light mt-2"
+                                                onClick={() =>
+                                                    this.savePlace(onePlace)
+                                                }
+                                            >
+                                                Add To Path
+                                            </button>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <h3 className="mt-3">No places found.</h3>
+                            )}
+                        </div>
+                    </div>
+                    <div
+                        id="newPlace"
+                        className="modal mx-auto"
+                        tabIndex="-1"
+                        role="dialog"
+                    >
+                        <div
+                            className="modal-dialog modal-dialog-centered"
+                            role="document"
+                        >
+                            <div className="modal-content green">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">
+                                        Choose a Path
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        className="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    {this.state.paths.length ? (
+                                        this.state.paths.map((path, idx) => (
+                                            <button
+                                                key={idx}
+                                                className="btn btn-outline-light m-4"
+                                                data-dismiss="modal"
+                                                onClick={() =>
+                                                    this.addToPath(path._id)
+                                                }
+                                            >
+                                                {path.country}
+                                            </button>
+                                        ))
+                                    ) : (
+                                        <h3>You have no paths yet...</h3>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

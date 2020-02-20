@@ -1,8 +1,13 @@
 .place-image {
     max-width: 90%;
-    max-height: 60%;
+    max-height: 250px;
 }
 
 .place-div {
-    background-color: rgba(255, 255, 255, 0.384);
+    background-color: rgba(0, 0, 0, 0.384);
+}
+
+.place-link {
+    text-decoration: underline;
+    font-size: 20px;
 }

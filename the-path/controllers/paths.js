@@ -29,16 +29,27 @@ async function showPath(req, res) {
 }
 
 async function updatePath(req, res) {
-    try {
-        const updatedPath = await Path.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        res.status(200).json(updatedPath);
-    } catch (err) {
-        res.status(400).json({ err });
-    }
+    await Path.findOne({ _id: req.params.id }, (err, path) => {
+        path.places.push(req.body);
+        try {
+            path.save();
+            res.status(200).json(path);
+        } catch (err) {
+            res.status(400).json({ err });
+        }
+    });
+}
+
+async function deletePlaceAndUpdatePath(req, res) {
+    await Path.findOne({ _id: req.params.id }, (err, path) => {
+        path.places.splice(req.body, 1);
+        try {
+            path.save();
+            res.status(200).json(path);
+        } catch (err) {
+            res.status(400).json({ err });
+        }
+    });
 }
 
 async function deletePath(req, res) {
@@ -55,5 +66,6 @@ module.exports = {
     createPath,
     showPath,
     updatePath,
+    deletePlaceAndUpdatePath,
     deletePath
 };

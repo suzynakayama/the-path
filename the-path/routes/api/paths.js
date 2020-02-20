@@ -11,8 +11,9 @@ function checkAuth(req, res, next) {
 router.use(require("../../config/auth"));
 router.get("/", pathsCtrl.index);
 router.post("/", pathsCtrl.createPath);
+router.put("/:id/update", pathsCtrl.updatePath);
+router.put("/:id/update/deleteplace", pathsCtrl.deletePlaceAndUpdatePath);
 router.get("/:id", pathsCtrl.showPath);
-router.put("/:id", pathsCtrl.updatePath);
 router.delete("/:id", pathsCtrl.deletePath);
 router.post("/:id/itinerary", itinerariesCtrl.createItinerary);
 router.delete("/:id/itinerary/:iti_id", itinerariesCtrl.deleteItinerary);

@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import pathService from "../../utils/pathService";
 import itineraryService from "../../utils/itineraryService";
 import "./OnePath.css";
+import Itinerary from "../../components/Itinerary/Itinerary";
 
 class OnePath extends Component {
     constructor(props) {
@@ -28,7 +29,21 @@ class OnePath extends Component {
             ...this.state,
             path: path
         });
+        console.log(this.state.path);
     }
+
+    handleUpdate = async () => {
+        let path = await this.getPath(this.props.match.params.id);
+        this.setState({
+            path: path,
+            form: {
+                day: new Date(),
+                city: "",
+                notes: "",
+                places: []
+            }
+        });
+    };
 
     getPath = async id => {
         let path = await pathService.getOnePath(id);
@@ -74,16 +89,7 @@ class OnePath extends Component {
                 this.state.form
             );
             this.props.history.push(`/paths/${this.props.match.params.id}`);
-            let path = await this.getPath(this.props.match.params.id);
-            this.setState({
-                path: path,
-                form: {
-                    day: new Date(),
-                    city: "",
-                    notes: "",
-                    places: []
-                }
-            });
+            this.handleUpdate();
         } catch (err) {
             console.log(err);
         }
@@ -102,6 +108,21 @@ class OnePath extends Component {
         });
     };
 
+    deletePlace = async placeIdx => {
+        let idx = { idx: placeIdx };
+        await pathService.deletePlace(this.props.match.params.id, idx);
+        let path = await this.getPath(this.props.match.params.id);
+        this.setState({
+            path: path,
+            form: {
+                day: new Date(),
+                city: "",
+                notes: "",
+                places: []
+            }
+        });
+    };
+
     render() {
         return (
             <div>
@@ -112,13 +133,13 @@ class OnePath extends Component {
                 <br />
                 <div className="main-line"></div>
                 <br />
-                <div className="m-5 p-5 border rounded col-sm-8 mx-auto green scroll">
+                <div className="m-5 p-5 border rounded col-sm-6 mx-auto green scroll">
                     <br />
                     <br />
                     {this.state.path ? (
                         <>
                             <h2 className="text-center">
-                                {this.state.path.country}
+                                <u>{this.state.path.country}</u>
                             </h2>
                             <br />
                             <img className="mx-auto" src="" alt="" />
@@ -133,7 +154,50 @@ class OnePath extends Component {
                                 ""
                             )}
                             <br />
-                            <div className="d-flex justify-content-around mt-4">
+                            {this.state.path.places ? (
+                                <>
+                                    <h4 className="mb-5">Saved Places</h4>
+                                    <ul className="d-flex justify-content-around w-90">
+                                        {this.state.path.places.map(
+                                            (place, idx) => {
+                                                return (
+                                                    <li
+                                                        key={idx}
+                                                        className="col-sm-3"
+                                                    >
+                                                        <a
+                                                            className="white"
+                                                            href={place.url}
+                                                        >
+                                                            {place.name}
+                                                            <img
+                                                                className="place-image"
+                                                                src={
+                                                                    place.image
+                                                                }
+                                                                alt={place.name}
+                                                            />
+                                                        </a>
+                                                        <button
+                                                            className="a-btn sml-text"
+                                                            onClick={() =>
+                                                                this.deletePlace(
+                                                                    idx
+                                                                )
+                                                            }
+                                                        >
+                                                            Delete Place
+                                                        </button>
+                                                    </li>
+                                                );
+                                            }
+                                        )}
+                                    </ul>
+                                </>
+                            ) : (
+                                ""
+                            )}
+                            <div className="d-flex justify-content-around mt-5 iti-bts-div mx-auto">
                                 <button
                                     type="button"
                                     data-toggle="modal"
@@ -143,60 +207,21 @@ class OnePath extends Component {
                                     Add Itinerary
                                 </button>
                                 <button
-                                    className="btn btn-outline-light"
+                                    className="a-btn"
                                     onClick={this.handleDelete}
                                 >
-                                    X
+                                    Delete Path
                                 </button>
                             </div>
                             {this.state.path.itinerary
                                 ? this.state.path.itinerary.length
                                     ? this.state.path.itinerary.map(one => (
-                                          <div
-                                              className="border rounded mt-5 ml-3 mr-3 p-4 itinerary-div mx-auto"
-                                              key={one._id}
-                                          >
-                                              <button
-                                                  className="btn btn-outline-light right"
-                                                  onClick={() =>
-                                                      this.handleDeleteItinerary(
-                                                          one._id
-                                                      )
-                                                  }
-                                              >
-                                                  X
-                                              </button>
-                                              <h5>Day: {one.day}</h5>
-                                              <br />
-                                              <h5>City: {one.city}</h5>
-                                              <br />
-                                              {one.places
-                                                  ? one.places.map(place => (
-                                                        <div key={place._id}>
-                                                            <h6>
-                                                                Place:{" "}
-                                                                {place.name}
-                                                            </h6>
-                                                            <br />
-                                                            <img
-                                                                src={
-                                                                    place.image
-                                                                }
-                                                                alt={place.name}
-                                                            />
-                                                            <br />
-                                                            <h6>
-                                                                Location:{" "}
-                                                                {place.location}
-                                                            </h6>
-                                                        </div>
-                                                    ))
-                                                  : ""}
-                                              <div className="line mb-2" />
-                                              <h5>Notes:</h5>
-                                              <br />
-                                              <p>{one.notes}</p>
-                                          </div>
+                                          <Itinerary
+                                              one={one}
+                                              handleDeleteItinerary={
+                                                  this.handleDeleteItinerary
+                                              }
+                                          />
                                       ))
                                     : ""
                                 : ""}

@@ -74,7 +74,8 @@ class PathsCards extends Component {
                     from: new Date(),
                     to: new Date(),
                     notes: "",
-                    itinerary: []
+                    itinerary: [],
+                    places: []
                 }
             });
         } catch (err) {

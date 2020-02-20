@@ -5,11 +5,7 @@ const itinerarySchema = new Schema(
     {
         day: Date,
         city: String,
-        notes: String,
-        places: {
-            type: Schema.Types.ObjectId,
-            ref: "Place"
-        }
+        notes: String
     },
     {
         timestamps: true
@@ -32,6 +28,7 @@ const PathSchema = new Schema(
         },
         image: String,
         notes: String,
+        places: Array,
         itinerary: [itinerarySchema],
         user: {
             type: Schema.Types.ObjectId,
