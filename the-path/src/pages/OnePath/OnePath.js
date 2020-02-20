@@ -72,20 +72,32 @@ class OnePath extends Component {
         });
     };
 
+    placesArr = [];
+
     handleCheckbox = evt => {
         if (evt.target.checked) {
             let newPlace = evt.target.value;
+            this.placesArr.push(newPlace);
             this.setState({
                 ...this.state,
                 form: {
                     ...this.state.form,
-                    places: [...this.state.form.places, newPlace]
+                    places: this.placesArr
                 }
             });
-        } else {
-            let name = evt.target.value.split(",")[0];
-            let index = this.state.form.places.indexOf(name);
-            if (index !== -1) this.state.form.places.splice(index, 1);
+        } else if (evt.target.checked === false) {
+            let name = evt.target.value;
+            let index = this.placesArr.indexOf(name);
+            if (index !== -1) {
+                this.placesArr.splice(index, 1);
+                this.setState({
+                    ...this.state,
+                    form: {
+                        ...this.state.form,
+                        places: this.placesArr
+                    }
+                });
+            }
         }
     };
 
@@ -103,6 +115,7 @@ class OnePath extends Component {
             );
             this.props.history.push(`/paths/${this.props.match.params.id}`);
             this.handleUpdate();
+            this.placesArr = [];
         } catch (err) {
             console.log(err);
         }
@@ -125,6 +138,12 @@ class OnePath extends Component {
         let idx = { idx: placeIdx };
         await pathService.deletePlace(this.props.match.params.id, idx);
         this.handleUpdate();
+    };
+
+    cleanCheckboxes = () => {
+        document.querySelectorAll(".places-checkbox").forEach(el => {
+            el.checked = false;
+        });
     };
 
     render() {
@@ -175,6 +194,7 @@ class OnePath extends Component {
                                             data-toggle="modal"
                                             data-target="#newItinerary"
                                             className="btn btn-outline-dark"
+                                            onClick={this.cleanCheckboxes}
                                         >
                                             Add Itinerary
                                         </button>
@@ -229,6 +249,8 @@ class OnePath extends Component {
                                                                     href={
                                                                         place.url
                                                                     }
+                                                                    target="_blank"
+                                                                    rel="noreferrer noopener"
                                                                 >
                                                                     {place.name}
                                                                     <img
@@ -334,7 +356,7 @@ class OnePath extends Component {
                                                                 className="form-check"
                                                             >
                                                                 <input
-                                                                    className="form-check-input"
+                                                                    className="form-check-input places-checkbox"
                                                                     type="checkbox"
                                                                     id={
                                                                         place.name

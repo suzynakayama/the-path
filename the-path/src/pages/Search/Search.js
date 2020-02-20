@@ -185,6 +185,8 @@ class Search extends Component {
                                                 <a
                                                     className="place-link "
                                                     href={onePlace.url}
+                                                    target="_blank"
+                                                    rel="noreferrer noopener"
                                                 >
                                                     More
                                                 </a>

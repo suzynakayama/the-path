@@ -14,7 +14,7 @@ function Main(props) {
                 <h4 className="mb-4">
                     Well, here you can find you’re path and plan your trip...
                 </h4>
-                <h4>Let's find your next destination!</h4>
+                <h4>Let's plan your next destination!</h4>
             </div>
             <br />
         </div>

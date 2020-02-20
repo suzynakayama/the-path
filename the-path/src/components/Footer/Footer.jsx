@@ -8,6 +8,8 @@ export default function Footer() {
                 <a
                     href="https://github.com/suzynakayama"
                     className="d-flex justify-content-start align-items-center footer-a"
+                    target="_blank"
+                    rel="noreferrer noopener"
                 >
                     <span className="footer-span">Developed by</span>
                     &nbsp;Suzy Yume&nbsp;

@@ -30,11 +30,13 @@ export default function Itinerary(props) {
                                 let placeUrl = placeArr[1];
                                 return (
                                     <a
-                                        className="border rounded col-sm-3 m-2 p-2"
+                                        className="border rounded col-sm-4 m-2 p-2"
                                         key={idx}
                                         href={placeUrl}
+                                        target="_blank"
+                                        rel="noreferrer noopener"
                                     >
-                                        {placeName}
+                                        <p>{placeName}</p>
                                     </a>
                                 );
                             })}
