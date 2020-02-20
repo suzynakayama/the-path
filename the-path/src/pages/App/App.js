@@ -8,6 +8,8 @@ import Profile from "../Profile/Profile";
 import Paths from "../Paths/Paths";
 import OnePath from "../OnePath/OnePath";
 import Search from "../Search/Search";
+import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 import "./App.css";
 
 class App extends Component {
@@ -35,6 +37,13 @@ class App extends Component {
     render() {
         return (
             <div className="App mx-auto">
+                <NavBar
+                    handleLogout={this.handleLogout}
+                    user={this.state.user}
+                />
+                <br />
+                <div className="main-line"></div>
+                <br />
                 <Switch>
                     <Route
                         exact
@@ -115,6 +124,7 @@ class App extends Component {
                         )}
                     />
                 </Switch>
+                <Footer />
             </div>
         );
     }

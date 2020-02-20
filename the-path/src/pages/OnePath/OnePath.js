@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "../../components/NavBar/NavBar";
-import Footer from "../../components/Footer/Footer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pathService from "../../utils/pathService";
@@ -131,130 +129,143 @@ class OnePath extends Component {
 
     render() {
         return (
-            <div>
-                <NavBar
-                    user={this.props.user}
-                    handleLogout={this.props.handleLogout}
-                />
-                <br />
-                <div className="main-line"></div>
-                <br />
-                <div className="m-5 p-5 border rounded col-sm-6 mx-auto green scroll one-path-div">
+            <div className="pages-bg">
+                <div className="m-5 p-5 border rounded col-sm-10 mx-auto green scroll one-path-div basic-top-margin">
                     <br />
                     <br />
-                    {this.state.path ? (
-                        <>
-                            <h2 className="text-center">
-                                <strong>
-                                    <u>{this.state.path.country}</u>
-                                </strong>
-                            </h2>
-                            <br />
-                            <img className="mx-auto" src="" alt="" />
-                            <br />
-                            <div className="d-flex justify-content-around w-90">
-                                <h4>
-                                    <strong>From:</strong>
-                                    &nbsp;&nbsp;{this.state.path.from}
-                                </h4>
-                                <h4>
-                                    <strong>To:</strong>
-                                    &nbsp;&nbsp;{this.state.path.to}
-                                </h4>
-                            </div>
-                            <br />
-                            {this.state.path.notes ? (
+                    <div className="sections-div d-flex">
+                        <section className="path-section-left">
+                            {this.state.path ? (
                                 <>
-                                    <h4>
-                                        <strong>Notes:</strong>
-                                    </h4>
-                                    <p>{this.state.path.notes}</p>
-                                </>
-                            ) : (
-                                ""
-                            )}
-                            <br />
-                            {this.state.path.places ? (
-                                <>
-                                    <h4 className="mb-5">
-                                        <strong>Saved Places</strong>
-                                    </h4>
-                                    <div className="places-div scroll">
-                                        <ul className="d-flex justify-content-around w-90">
-                                            {this.state.path.places.map(
-                                                (place, idx) => {
-                                                    return (
-                                                        <li
-                                                            key={idx}
-                                                            className="col-sm-3"
-                                                        >
-                                                            <a
-                                                                className="white place-name"
-                                                                href={place.url}
-                                                            >
-                                                                {place.name}
-                                                                <img
-                                                                    className="place-image place-image-mh mt-2"
-                                                                    src={
-                                                                        place.image
-                                                                    }
-                                                                    alt={
-                                                                        place.name
-                                                                    }
-                                                                />
-                                                            </a>
-                                                            <button
-                                                                className="a-btn sml-text mt-1"
-                                                                onClick={() =>
-                                                                    this.deletePlace(
-                                                                        idx
-                                                                    )
-                                                                }
-                                                            >
-                                                                Delete Place
-                                                            </button>
-                                                        </li>
-                                                    );
-                                                }
-                                            )}
-                                        </ul>
+                                    <h2 className="basic-title">
+                                        <strong>
+                                            <u>{this.state.path.country}</u>
+                                        </strong>
+                                    </h2>
+                                    <br />
+                                    <img className="mx-auto" src="" alt="" />
+                                    <br />
+                                    <div className="d-flex justify-content-around w-50 mx-auto">
+                                        <h4>
+                                            <strong>From:</strong>
+                                            &nbsp;&nbsp;{this.state.path.from}
+                                        </h4>
+                                        <h4>
+                                            <strong>To:</strong>
+                                            &nbsp;&nbsp;{this.state.path.to}
+                                        </h4>
+                                    </div>
+                                    <br />
+                                    {this.state.path.notes ? (
+                                        <div>
+                                            <h4>
+                                                <strong>Notes:</strong>
+                                            </h4>
+                                            <p className="align-left">
+                                                {this.state.path.notes}
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        ""
+                                    )}
+                                    <br />
+                                    <div className="d-flex justify-content-around mt-5 iti-bts-div mx-auto mb-5">
+                                        <button
+                                            type="button"
+                                            data-toggle="modal"
+                                            data-target="#newItinerary"
+                                            className="btn btn-outline-dark"
+                                        >
+                                            Add Itinerary
+                                        </button>
+                                        <button
+                                            className="a-btn"
+                                            onClick={this.handleDelete}
+                                        >
+                                            Delete Path
+                                        </button>
+                                    </div>
+                                    <div className="line mb-2" />
+                                    <div className="d-flex justify-content-around flex-wrap">
+                                        {this.state.path.itinerary
+                                            ? this.state.path.itinerary.length
+                                                ? this.state.path.itinerary.map(
+                                                      one => (
+                                                          <Itinerary
+                                                              one={one}
+                                                              handleDeleteItinerary={
+                                                                  this
+                                                                      .handleDeleteItinerary
+                                                              }
+                                                          />
+                                                      )
+                                                  )
+                                                : ""
+                                            : ""}
                                     </div>
                                 </>
                             ) : (
+                                <h2>Loading...</h2>
+                            )}
+                        </section>
+                        <section className="path-section-right">
+                            <h4 className="mb-5">
+                                <strong>Saved Places</strong>
+                            </h4>
+                            {this.state.path.places ? (
+                                this.state.path.places.length > 0 ? (
+                                    <>
+                                        <div className="scroll">
+                                            <ul className="d-flex justify-content-around flex-wrap">
+                                                {this.state.path.places.map(
+                                                    (place, idx) => {
+                                                        return (
+                                                            <li
+                                                                key={idx}
+                                                                className="col-sm-5"
+                                                            >
+                                                                <a
+                                                                    className="place-name"
+                                                                    href={
+                                                                        place.url
+                                                                    }
+                                                                >
+                                                                    {place.name}
+                                                                    <img
+                                                                        className="place-image place-image-mh mt-2"
+                                                                        src={
+                                                                            place.image
+                                                                        }
+                                                                        alt={
+                                                                            place.name
+                                                                        }
+                                                                    />
+                                                                </a>
+                                                                <button
+                                                                    className="a-btn sml-text mt-1"
+                                                                    onClick={() =>
+                                                                        this.deletePlace(
+                                                                            idx
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Delete Place
+                                                                </button>
+                                                            </li>
+                                                        );
+                                                    }
+                                                )}
+                                            </ul>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <h5>You didn't save any place yet...</h5>
+                                )
+                            ) : (
                                 ""
                             )}
-                            <div className="d-flex justify-content-around mt-5 iti-bts-div mx-auto">
-                                <button
-                                    type="button"
-                                    data-toggle="modal"
-                                    data-target="#newItinerary"
-                                    className="btn btn-outline-light"
-                                >
-                                    Add Itinerary
-                                </button>
-                                <button
-                                    className="a-btn"
-                                    onClick={this.handleDelete}
-                                >
-                                    Delete Path
-                                </button>
-                            </div>
-                            {this.state.path.itinerary
-                                ? this.state.path.itinerary.length
-                                    ? this.state.path.itinerary.map(one => (
-                                          <Itinerary
-                                              one={one}
-                                              handleDeleteItinerary={
-                                                  this.handleDeleteItinerary
-                                              }
-                                          />
-                                      ))
-                                    : ""
-                                : ""}
-                        </>
-                    ) : (
-                        <h2>Loading...</h2>
-                    )}
+                        </section>
+                    </div>
                     <br />
                     <br />
                 </div>
@@ -282,27 +293,34 @@ class OnePath extends Component {
                             </div>
                             <div className="modal-body">
                                 <form className="" onSubmit={this.addItinerary}>
-                                    <div className="form-group">
-                                        <label className="d-block">Day:</label>
+                                    <div className="form-group row mx-auto mb-4 mt-4">
+                                        <label className="col-sm-3 col-form-label">
+                                            Day:
+                                        </label>
                                         <DatePicker
                                             selected={this.state.form.day}
                                             onChange={this.handleDayDate}
+                                            className="form-control col-sm-7"
                                         />
+                                    </div>
+                                    <div className="form-group row mx-auto mb-4 mt-4">
                                         <label
                                             htmlFor="city"
-                                            className="mt-4 mb-4 d-block"
+                                            className="col-sm-3 col-form-label"
                                         >
                                             City:
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-control"
+                                            className="form-control col-sm-7"
                                             id="city"
                                             value={this.state.form.city}
                                             name="city"
                                             onChange={this.handleChange}
                                         />
-                                        <label className="mt-4 mb-4 d-block">
+                                    </div>
+                                    <div className="form-group mx-auto mb-4 mt-4">
+                                        <label className="d-block">
                                             Choose the places you want to visit
                                             on this day:
                                         </label>
@@ -340,46 +358,47 @@ class OnePath extends Component {
                                                     }
                                                 )
                                             ) : (
-                                                <h4>
+                                                <h5>
                                                     You have no saved places
                                                     yet.
-                                                </h4>
+                                                </h5>
                                             )
                                         ) : (
-                                            <h4>
+                                            <h5>
                                                 You have no saved places yet.
-                                            </h4>
+                                            </h5>
                                         )}
+                                    </div>
+                                    <div className="form-group row mx-auto mb-4 mt-4">
                                         <label
-                                            className="mt-4 mb-4 d-block"
+                                            className="col-sm-3 col-form-label"
                                             htmlFor="notes"
                                         >
                                             Notes:
                                         </label>
                                         <input
                                             type="textarea"
-                                            className="form-control"
+                                            className="form-control col-sm-7"
                                             id="notes"
                                             value={this.state.form.notes}
                                             name="notes"
                                             onChange={this.handleChange}
                                         />
-                                        <button
-                                            type="submit"
-                                            className="btn btn-outline-light mt-4"
-                                            data-dismiss="modal"
-                                            onClick={this.addItinerary}
-                                        >
-                                            Add
-                                        </button>
                                     </div>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-outline-dark mt-4"
+                                        data-dismiss="modal"
+                                        onClick={this.addItinerary}
+                                    >
+                                        Add
+                                    </button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
                 <br />
-                <Footer />
             </div>
         );
     }

@@ -8,7 +8,7 @@ export default function PathCard(props) {
     to = to.slice(0, 10);
 
     return (
-        <div className="card green col-sm-3 m-4">
+        <div className="card green col-sm-3 m-4 card-each p-3">
             {props.path.image ? (
                 <img
                     src={props.path.image}
@@ -19,12 +19,16 @@ export default function PathCard(props) {
                 ""
             )}
             <div className="card-body">
-                <h2 className="card-title">{props.path.country}</h2>
-                <h5 className="card-text">{`From: ${from}`}</h5>
-                <h5 className="card-text">{`To: ${to}`}</h5>
+                <p className="card-title font-weight-bold basic-title ">
+                    {props.path.country}
+                </p>
+                <div className="card-date">
+                    <h5 className="card-text">{`From: ${from}`}</h5>
+                    <h5 className="card-text">{`To: ${to}`}</h5>
+                </div>
                 <Link
                     to={`/paths/${props.path._id}`}
-                    className="btn btn-outline-light mt-4"
+                    className="btn btn-outline-dark mt-4 card-more"
                 >
                     More
                 </Link>

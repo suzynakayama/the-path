@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "../../components/NavBar/NavBar";
-import Footer from "../../components/Footer/Footer";
 import pathService from "../../utils/pathService";
 import yelpAPI from "../../utils/yelpAPI";
 //import googleAPI from "../../utils/googleAPI";
@@ -118,18 +116,11 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
-                <NavBar
-                    user={this.props.user}
-                    handleLogout={this.props.handleLogout}
-                />
-                <br />
-                <div className="main-line"></div>
-                <br />
-                <div className="mt-5">
-                    <div className="m-5 p-5 border rounded col-sm-8 mx-auto green scroll">
+            <div className="pages-bg">
+                <div className="basic-top-margin">
+                    <div className="m-5 p-5 border rounded col-sm-10 mx-auto green scroll">
                         <header>
-                            <h2 className="mb-5 font-weight-bold">
+                            <h2 className="mb-5 font-weight-bold basic-title">
                                 Find Places
                             </h2>
                         </header>
@@ -161,9 +152,9 @@ class Search extends Component {
                                     onChange={this.handleChange}
                                 />
                             </div>
-                            <div className="form-group mt-5">
+                            <div className="form-group mt-4">
                                 <button
-                                    className="btn btn-outline-light"
+                                    className="btn btn-outline-dark mb-5"
                                     onClick={this.getAPI}
                                 >
                                     Find
@@ -171,12 +162,12 @@ class Search extends Component {
                             </div>
                         </form>
                         <div className="line mb-2" />
-                        <div className="d-flex justify-content-around w-90 flex-wrap scroll places-found-div">
+                        <div className="d-flex justify-content-around w-90 flex-wrap scroll places-found-div mt-5">
                             {this.state.places.length > 0 ? (
                                 this.state.places.map(onePlace => {
                                     return (
                                         <div
-                                            key={onePlace.phone}
+                                            key={onePlace.name}
                                             className="col-sm-3 place-div border rounded p-3 m-3"
                                         >
                                             <h3>{onePlace.name}</h3>
@@ -190,23 +181,25 @@ class Search extends Component {
                                             <p className="mt-3">
                                                 {onePlace.location}
                                             </p>
-                                            <a
-                                                className="d-block place-link white"
-                                                href={onePlace.url}
-                                            >
-                                                More
-                                            </a>
-                                            <button
-                                                type="button"
-                                                data-toggle="modal"
-                                                data-target="#newPlace"
-                                                className="btn btn-outline-light mt-2"
-                                                onClick={() =>
-                                                    this.savePlace(onePlace)
-                                                }
-                                            >
-                                                Add To Path
-                                            </button>
+                                            <div className="d-flex justify-content-around align-items-end">
+                                                <a
+                                                    className="place-link "
+                                                    href={onePlace.url}
+                                                >
+                                                    More
+                                                </a>
+                                                <button
+                                                    type="button"
+                                                    data-toggle="modal"
+                                                    data-target="#newPlace"
+                                                    className="btn btn-outline-dark mt-2"
+                                                    onClick={() =>
+                                                        this.savePlace(onePlace)
+                                                    }
+                                                >
+                                                    Add To Path
+                                                </button>
+                                            </div>
                                         </div>
                                     );
                                 })
@@ -244,7 +237,7 @@ class Search extends Component {
                                         this.state.paths.map((path, idx) => (
                                             <button
                                                 key={idx}
-                                                className="btn btn-outline-light m-4"
+                                                className="btn btn-outline-dark m-4"
                                                 data-dismiss="modal"
                                                 onClick={() =>
                                                     this.addToPath(path._id)
@@ -262,7 +255,6 @@ class Search extends Component {
                     </div>
                 </div>
                 <br />
-                <Footer />
             </div>
         );
     }

@@ -38,8 +38,8 @@ class SignupForm extends Component {
 
     render() {
         return (
-            <div className="mt-5">
-                <div className="m-5 p-5 border rounded col-sm-7 mx-auto green">
+            <div>
+                <div className="m-5 p-5 border rounded col-sm-7 mx-auto green basic-top-margin">
                     <header>
                         <h2 className="mb-5 font-weight-bold">Sign Up</h2>
                     </header>
@@ -113,7 +113,7 @@ class SignupForm extends Component {
                         </div>
                         <div className="d-flex justify-content-center">
                             <button
-                                className="btn btn-outline-light "
+                                className="btn btn-outline-dark "
                                 disabled={this.isFormInvalid()}
                             >
                                 Submit

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import userService from "../../utils/userService";
-import NavBar from "../../components/NavBar/NavBar";
-import Footer from "../../components/Footer/Footer";
 import { Redirect } from "react-router-dom";
 import "./profile.css";
 
@@ -47,17 +45,12 @@ export class Profile extends Component {
             return <Redirect to="/" />;
         } else {
             return (
-                <div>
-                    <NavBar
-                        user={this.props.user}
-                        handleLogout={this.props.handleLogout}
-                    />
-                    <br />
-                    <div className="main-line"></div>
-                    <br />
-                    <div className="m-5 p-5 border rounded col-sm-6 mx-auto green">
+                <div className="pages-bg">
+                    <div className="m-5 p-5 border rounded col-sm-6 mx-auto green basic-top-margin">
                         <header>
-                            <h2>{this.props.user.name}'s Profile</h2>
+                            <h2 className="basic-title font-weight-bold profile-title">
+                                {this.props.user.name}'s Profile
+                            </h2>
                         </header>
                         <br />
                         <form
@@ -99,7 +92,7 @@ export class Profile extends Component {
                             <div className="d-flex justify-content-center">
                                 <button
                                     type="submit"
-                                    className="btn btn-outline-light mt-4"
+                                    className="btn btn-outline-dark mt-4"
                                     onClick={this.handleSubmit}
                                 >
                                     Update
@@ -114,7 +107,6 @@ export class Profile extends Component {
                         </form>
                     </div>
                     <br />
-                    <Footer />
                 </div>
             );
         }

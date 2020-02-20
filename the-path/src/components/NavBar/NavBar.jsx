@@ -30,10 +30,6 @@ export default function NavBar(props) {
                         Profile
                     </Link>
                     &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <Link to="/about" className="NavBar-link">
-                        About
-                    </Link>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <Link
                         to=""
                         className="NavBar-link"
@@ -46,10 +42,6 @@ export default function NavBar(props) {
                 <div className="d-flex justify-content-end align-items-center footer-span left w-40 mt-4">
                     <Link to="/" className="NavBar-link">
                         Home
-                    </Link>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                    <Link to="/about" className="NavBar-link">
-                        About
                     </Link>
                     &nbsp;&nbsp;|&nbsp;&nbsp;
                     <Link to="/login" className="NavBar-link">

@@ -1,14 +1,15 @@
 import React from "react";
+import "./Itinerary.css";
 
 export default function Itinerary(props) {
     return (
         <>
             <div
-                className="border rounded mt-5 ml-3 mr-3 p-4 itinerary-div mx-auto"
+                className="border rounded green col-sm-4 m-4 p-3 scroll itinerary-div"
                 key={props.one._id}
             >
                 <button
-                    className="btn btn-outline-light right"
+                    className="btn right"
                     onClick={() => props.handleDeleteItinerary(props.one._id)}
                 >
                     X
@@ -29,7 +30,7 @@ export default function Itinerary(props) {
                                 let placeUrl = placeArr[1];
                                 return (
                                     <a
-                                        className="white border rounded col-sm-3 m-2 p-2"
+                                        className="border rounded col-sm-3 m-2 p-2"
                                         key={idx}
                                         href={placeUrl}
                                     >

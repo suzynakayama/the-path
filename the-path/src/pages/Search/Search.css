@@ -1,5 +1,6 @@
 .place-div {
-    background-color: rgba(0, 0, 0, 0.384);
+    background-color: #f1f2f1;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .place-link {
@@ -8,5 +9,5 @@
 }
 
 .places-found-div {
-    max-height: 700px;
+    max-height: 250px;
 }

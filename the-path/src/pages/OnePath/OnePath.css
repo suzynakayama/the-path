@@ -1,10 +1,5 @@
 .one-path-div {
-    max-height: 680px;
-}
-
-.itinerary-div {
-    width: 65%;
-    background-color: rgba(0, 0, 0, 0.384);
+    max-height: 650px;
 }
 
 .iti-bts-div {
@@ -32,6 +27,23 @@ li {
     font-size: 16px !important;
 }
 
-.places-div {
+/* .places-div {
     max-height: 230px;
+} */
+
+.sections-div {
+}
+
+.path-section-left {
+    width: 70%;
+    border-right: 1px solid black;
+}
+
+.path-section-right {
+    width: 30%;
+}
+
+.align-left {
+    text-align: left;
+    padding-left: 180px;
 }

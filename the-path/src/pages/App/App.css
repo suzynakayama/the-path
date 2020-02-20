@@ -3,15 +3,24 @@
     width: 90vw;
 }
 
+.pages-bg {
+    background-color: #f1f2f1;
+    margin-top: -71px;
+    margin-left: -90px;
+    margin-right: -90px;
+    height: 790px;
+}
+
 .green {
-    background-color: darkgreen;
-    color: white;
-    box-shadow: 3px 3px 10px #ccc;
+    background-color: white;
+    color: darkgreen;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .right {
     position: relative;
-    right: -30%;
+    right: -40%;
+    /* -30 */
 }
 
 .scroll {
@@ -20,7 +29,7 @@
 
 .a-btn {
     text-decoration: underline;
-    color: white;
+    color: black;
     background-color: transparent;
     border: none;
     font-size: 18px;
@@ -44,4 +53,13 @@
     width: 150px;
     max-width: 90%;
     max-height: 250px;
+}
+
+.basic-top-margin {
+    position: relative;
+    top: 70px;
+}
+
+.basic-title {
+    font-size: 60px;
 }

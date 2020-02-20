@@ -29,8 +29,8 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div className="mt-5">
-                <div className="m-5 p-5 border rounded col-sm-6 mx-auto green">
+            <div>
+                <div className="m-5 p-5 border rounded col-sm-6 mx-auto green basic-top-margin">
                     <header>
                         <h2 className="mb-5 font-weight-bold">Login</h2>
                     </header>
@@ -72,7 +72,7 @@ class LoginPage extends Component {
                         </div>
                         <div className="form-group">
                             <div className="d-flex justify-content-center">
-                                <button className="btn btn-outline-light">
+                                <button className="btn btn-outline-dark">
                                     Log In
                                 </button>
                                 <Link className="a-btn ml-5 mt-3" to="/">

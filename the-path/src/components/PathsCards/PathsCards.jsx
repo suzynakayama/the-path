@@ -103,12 +103,12 @@ class PathsCards extends Component {
 
     render() {
         return (
-            <div className="scroll">
+            <div className="scroll pages-bg mymt">
                 <button
                     type="button"
                     data-toggle="modal"
                     data-target="#newPath"
-                    className="btn btn-outline-success mt-4 mr-5 right"
+                    className="btn btn-outline-dark mt-4 mr-5 right"
                 >
                     Add Path
                 </button>
@@ -145,59 +145,67 @@ class PathsCards extends Component {
                             </div>
                             <div className="modal-body">
                                 <form onSubmit={this.handleSubmit}>
-                                    <div className="form-group">
+                                    <div className="form-group row mx-auto mt-4 mb-4">
                                         {/* TODO input for images */}
                                         <label
                                             htmlFor="country"
-                                            className="d-block"
+                                            className="col-sm-3 col-form-label"
                                         >
                                             Country:
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-control"
+                                            className="form-control col-sm-7"
                                             id="country"
                                             value={this.state.form.country}
                                             name="country"
                                             onChange={this.handleChange}
                                         />
-                                        <label className="mt-4 d-block">
+                                    </div>
+                                    <div className="form-group row mx-auto mt-4 mb-4">
+                                        <label className=" col-sm-3 col-form-label">
                                             From:
                                         </label>
                                         <DatePicker
                                             selected={this.state.form.from}
                                             onChange={this.handleFromDate}
+                                            className="form-control col-sm-7"
                                         />
-                                        <label className="mt-4 d-block">
+                                    </div>
+                                    <div className="form-group row mx-auto mt-4 mb-4">
+                                        <label className=" col-sm-3 col-form-label">
                                             To:
                                         </label>
                                         <DatePicker
                                             selected={this.state.form.to}
                                             onChange={this.handleToDate}
+                                            className="form-control col-sm-7"
                                         />
+                                    </div>
+                                    <div className="form-group row mx-auto mt-4 mb-4">
                                         <label
-                                            className="mt-4 mb-4 d-block"
+                                            className="col-sm-3 col-form-label"
                                             htmlFor="notes"
                                         >
                                             Notes:
                                         </label>
                                         <input
                                             type="textarea"
-                                            className="form-control"
+                                            className="form-control col-sm-7"
                                             id="notes"
                                             value={this.state.form.notes}
                                             name="notes"
                                             onChange={this.handleChange}
                                         />
-                                        <button
-                                            type="submit"
-                                            className="btn btn-outline-light mt-4"
-                                            onClick={this.handleSubmit}
-                                            data-dismiss="modal"
-                                        >
-                                            Submit
-                                        </button>
                                     </div>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-outline-dark mt-4"
+                                        onClick={this.handleSubmit}
+                                        data-dismiss="modal"
+                                    >
+                                        Submit
+                                    </button>
                                 </form>
                             </div>
                         </div>
