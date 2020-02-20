@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// TODO implement places schema
+
 const placeSchema = new Schema(
     {
         name: {
