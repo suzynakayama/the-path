@@ -1,3 +1,7 @@
+.one-path-div {
+    max-height: 680px;
+}
+
 .itinerary-div {
     width: 65%;
     background-color: rgba(0, 0, 0, 0.384);
@@ -7,11 +11,12 @@
     width: 60%;
 }
 
-.place-image {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    width: 150px;
+.place-name {
+    font-size: 18px;
+}
+
+.place-image-mh {
+    max-height: 190px !important;
 }
 
 .place-image :hover {
@@ -25,4 +30,8 @@ li {
 
 .sml-text {
     font-size: 16px !important;
+}
+
+.places-div {
+    max-height: 230px;
 }

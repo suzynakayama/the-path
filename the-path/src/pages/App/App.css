@@ -15,7 +15,6 @@
 }
 
 .scroll {
-    max-height: 700px;
     overflow-y: scroll;
 }
 
@@ -36,4 +35,13 @@
 .white,
 .white:hover {
     color: white;
+}
+
+.place-image {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+    max-width: 90%;
+    max-height: 250px;
 }

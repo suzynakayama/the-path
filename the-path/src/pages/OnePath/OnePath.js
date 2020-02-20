@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import DatePicker from "react-datepicker";
@@ -29,7 +28,6 @@ class OnePath extends Component {
             ...this.state,
             path: path
         });
-        console.log(this.state.path);
     }
 
     handleUpdate = async () => {
@@ -76,6 +74,23 @@ class OnePath extends Component {
         });
     };
 
+    handleCheckbox = evt => {
+        if (evt.target.checked) {
+            let newPlace = evt.target.value;
+            this.setState({
+                ...this.state,
+                form: {
+                    ...this.state.form,
+                    places: [...this.state.form.places, newPlace]
+                }
+            });
+        } else {
+            let name = evt.target.value.split(",")[0];
+            let index = this.state.form.places.indexOf(name);
+            if (index !== -1) this.state.form.places.splice(index, 1);
+        }
+    };
+
     handleDelete = async () => {
         await pathService.deletePath(this.props.match.params.id);
         this.props.history.push("/paths");
@@ -111,16 +126,7 @@ class OnePath extends Component {
     deletePlace = async placeIdx => {
         let idx = { idx: placeIdx };
         await pathService.deletePlace(this.props.match.params.id, idx);
-        let path = await this.getPath(this.props.match.params.id);
-        this.setState({
-            path: path,
-            form: {
-                day: new Date(),
-                city: "",
-                notes: "",
-                places: []
-            }
-        });
+        this.handleUpdate();
     };
 
     render() {
@@ -133,66 +139,86 @@ class OnePath extends Component {
                 <br />
                 <div className="main-line"></div>
                 <br />
-                <div className="m-5 p-5 border rounded col-sm-6 mx-auto green scroll">
+                <div className="m-5 p-5 border rounded col-sm-6 mx-auto green scroll one-path-div">
                     <br />
                     <br />
                     {this.state.path ? (
                         <>
                             <h2 className="text-center">
-                                <u>{this.state.path.country}</u>
+                                <strong>
+                                    <u>{this.state.path.country}</u>
+                                </strong>
                             </h2>
                             <br />
                             <img className="mx-auto" src="" alt="" />
                             <br />
-                            <h4>From: {this.state.path.from}</h4>
-                            <br />
-                            <h4>To: {this.state.path.to}</h4>
+                            <div className="d-flex justify-content-around w-90">
+                                <h4>
+                                    <strong>From:</strong>
+                                    &nbsp;&nbsp;{this.state.path.from}
+                                </h4>
+                                <h4>
+                                    <strong>To:</strong>
+                                    &nbsp;&nbsp;{this.state.path.to}
+                                </h4>
+                            </div>
                             <br />
                             {this.state.path.notes ? (
-                                <h4>Notes: {this.state.path.notes}</h4>
+                                <>
+                                    <h4>
+                                        <strong>Notes:</strong>
+                                    </h4>
+                                    <p>{this.state.path.notes}</p>
+                                </>
                             ) : (
                                 ""
                             )}
                             <br />
                             {this.state.path.places ? (
                                 <>
-                                    <h4 className="mb-5">Saved Places</h4>
-                                    <ul className="d-flex justify-content-around w-90">
-                                        {this.state.path.places.map(
-                                            (place, idx) => {
-                                                return (
-                                                    <li
-                                                        key={idx}
-                                                        className="col-sm-3"
-                                                    >
-                                                        <a
-                                                            className="white"
-                                                            href={place.url}
+                                    <h4 className="mb-5">
+                                        <strong>Saved Places</strong>
+                                    </h4>
+                                    <div className="places-div scroll">
+                                        <ul className="d-flex justify-content-around w-90">
+                                            {this.state.path.places.map(
+                                                (place, idx) => {
+                                                    return (
+                                                        <li
+                                                            key={idx}
+                                                            className="col-sm-3"
                                                         >
-                                                            {place.name}
-                                                            <img
-                                                                className="place-image"
-                                                                src={
-                                                                    place.image
+                                                            <a
+                                                                className="white place-name"
+                                                                href={place.url}
+                                                            >
+                                                                {place.name}
+                                                                <img
+                                                                    className="place-image place-image-mh mt-2"
+                                                                    src={
+                                                                        place.image
+                                                                    }
+                                                                    alt={
+                                                                        place.name
+                                                                    }
+                                                                />
+                                                            </a>
+                                                            <button
+                                                                className="a-btn sml-text mt-1"
+                                                                onClick={() =>
+                                                                    this.deletePlace(
+                                                                        idx
+                                                                    )
                                                                 }
-                                                                alt={place.name}
-                                                            />
-                                                        </a>
-                                                        <button
-                                                            className="a-btn sml-text"
-                                                            onClick={() =>
-                                                                this.deletePlace(
-                                                                    idx
-                                                                )
-                                                            }
-                                                        >
-                                                            Delete Place
-                                                        </button>
-                                                    </li>
-                                                );
-                                            }
-                                        )}
-                                    </ul>
+                                                            >
+                                                                Delete Place
+                                                            </button>
+                                                        </li>
+                                                    );
+                                                }
+                                            )}
+                                        </ul>
+                                    </div>
                                 </>
                             ) : (
                                 ""
@@ -276,6 +302,54 @@ class OnePath extends Component {
                                             name="city"
                                             onChange={this.handleChange}
                                         />
+                                        <label className="mt-4 mb-4 d-block">
+                                            Choose the places you want to visit
+                                            on this day:
+                                        </label>
+                                        {this.state.path.places ? (
+                                            this.state.path.places.length ? (
+                                                this.state.path.places.map(
+                                                    (place, idx) => {
+                                                        return (
+                                                            <div
+                                                                key={idx}
+                                                                className="form-check"
+                                                            >
+                                                                <input
+                                                                    className="form-check-input"
+                                                                    type="checkbox"
+                                                                    id={
+                                                                        place.name
+                                                                    }
+                                                                    value={`${place.name},${place.url}`}
+                                                                    onClick={
+                                                                        this
+                                                                            .handleCheckbox
+                                                                    }
+                                                                />
+                                                                <label
+                                                                    className="form-check-label"
+                                                                    htmlFor={
+                                                                        place.name
+                                                                    }
+                                                                >
+                                                                    {place.name}
+                                                                </label>
+                                                            </div>
+                                                        );
+                                                    }
+                                                )
+                                            ) : (
+                                                <h4>
+                                                    You have no saved places
+                                                    yet.
+                                                </h4>
+                                            )
+                                        ) : (
+                                            <h4>
+                                                You have no saved places yet.
+                                            </h4>
+                                        )}
                                         <label
                                             className="mt-4 mb-4 d-block"
                                             htmlFor="notes"

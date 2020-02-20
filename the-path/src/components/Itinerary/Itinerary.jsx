@@ -17,25 +17,32 @@ export default function Itinerary(props) {
                 <br />
                 <h5>City: {props.one.city}</h5>
                 <br />
-                <h5>
-                    <u>Places</u>
-                </h5>
-                <p>
-                    ADD PLACE.NAME - check how to save the places in the day
-                    without having to save it twice
-                </p>
+                {props.one.places.length > 0 ? (
+                    <>
+                        <h5>
+                            <u>Places</u>
+                        </h5>
+                        <div className="d-flex flex-wrap justify-content-around">
+                            {props.one.places.map((place, idx) => {
+                                let placeArr = place.split(",");
+                                let placeName = placeArr[0];
+                                let placeUrl = placeArr[1];
+                                return (
+                                    <a
+                                        className="white border rounded col-sm-3 m-2 p-2"
+                                        key={idx}
+                                        href={placeUrl}
+                                    >
+                                        {placeName}
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </>
+                ) : (
+                    <h5>You have no saved places yet.</h5>
+                )}
                 <br />
-                {props.one.places
-                    ? props.one.places.map(place => (
-                          <div key={place._id}>
-                              <h6>Place: {place.name}</h6>
-                              <br />
-                              <img src={place.image} alt={place.name} />
-                              <br />
-                              <h6>Location: {place.location}</h6>
-                          </div>
-                      ))
-                    : ""}
                 <div className="line mb-2" />
                 <h5>Notes:</h5>
                 <br />

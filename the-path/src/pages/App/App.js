@@ -1,9 +1,8 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Signup from "../Signup/Signup";
 import Login from "../Login/Login";
 import userService from "../../utils/userService";
-import pathService from "../../utils/pathService";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import Paths from "../Paths/Paths";

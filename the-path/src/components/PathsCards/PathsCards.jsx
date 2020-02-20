@@ -3,6 +3,7 @@ import PathCard from "../../components/PathCard/PathCard";
 import pathService from "../../utils/pathService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./PathsCards.css";
 
 class PathsCards extends Component {
     constructor() {
@@ -107,14 +108,14 @@ class PathsCards extends Component {
                     type="button"
                     data-toggle="modal"
                     data-target="#newPath"
-                    className="btn btn-outline-info mt-4 mr-5 right"
+                    className="btn btn-outline-success mt-4 mr-5 right"
                 >
                     Add Path
                 </button>
                 <br />
                 <br />
                 <br />
-                <div className="d-flex justify-content-around flex-wrap">
+                <div className="d-flex justify-content-around flex-wrap scroll paths-div">
                     {this.state.paths.map(path => (
                         <PathCard key={path._id} path={path} />
                     ))}

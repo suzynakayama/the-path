@@ -5,7 +5,8 @@ const itinerarySchema = new Schema(
     {
         day: Date,
         city: String,
-        notes: String
+        notes: String,
+        places: Array
     },
     {
         timestamps: true

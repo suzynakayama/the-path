@@ -2,13 +2,12 @@ const Path = require("../models/path");
 
 async function createItinerary(req, res) {
     try {
-        console.log("inside controller");
         let path = await Path.findById(req.params.id, (err, path) => {
             let newItinerary = {
                 day: req.body.day,
                 city: req.body.city,
-                notes: req.body.notes
-                // TODO implement places
+                notes: req.body.notes,
+                places: req.body.places
             };
             path.itinerary.push(newItinerary);
             path.save();

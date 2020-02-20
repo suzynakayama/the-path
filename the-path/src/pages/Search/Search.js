@@ -171,7 +171,7 @@ class Search extends Component {
                             </div>
                         </form>
                         <div className="line mb-2" />
-                        <div className="d-flex justify-content-around w-90 flex-wrap scroll">
+                        <div className="d-flex justify-content-around w-90 flex-wrap scroll places-found-div">
                             {this.state.places.length > 0 ? (
                                 this.state.places.map(onePlace => {
                                     return (
