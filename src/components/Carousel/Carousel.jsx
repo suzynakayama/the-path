@@ -57,6 +57,9 @@ export default function Carousel() {
                         data-interval="20000"
                     />
                 </div>
+                <div className="main-phrase-bg">
+                    <h1 className="main-phrase">Plan your path...</h1>
+                </div>
             </div>
         </div>
     );
