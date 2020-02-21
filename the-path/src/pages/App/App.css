@@ -8,7 +8,7 @@
     margin-top: -71px;
     margin-left: -90px;
     margin-right: -90px;
-    height: 790px;
+    height: 760px;
 }
 
 .green {
@@ -20,7 +20,6 @@
 .right {
     position: relative;
     right: -40%;
-    /* -30 */
 }
 
 .scroll {

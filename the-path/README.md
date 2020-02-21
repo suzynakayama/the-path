@@ -1,4 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# The Path
+
+### Introduction
+
+This is a Full-stack Single Page App (SPA) where the user can create his account, create his plans for a trip, search for places to visit and create daily itineraries.
+
+---
+
+#### Images
+
+![main page](https://i.imgur.com/QkThw33.jpg)
+
+![signup page](https://i.imgur.com/Y3kzm1m.png)
+
+![search page](https://i.imgur.com/T6EeL3C.png)
+
+---
+
+### Technologies
+
+Front-End:
+
+-   React
+-   JavaScript
+-   CSS
+-   Bootstrap
+
+Back-End:
+
+-   Node.Js
+-   Express
+-   MongoDb
+-   Mongoose
+
+---
+
+### The Planning
+
+You can check the app here: [The Path](https://www.example.com)
+
+You can check the code here: [GitHub](https://github.com/suzynakayama/the-path)
+
+You can check the Trello Board here: [Trello](https://trello.com/b/qcRIXb2S/the-path)
+
+ERD:
+
+![erd](https://i.imgur.com/lDtZ63L.png)
+
+---
+
+### Unsolved Problems
+
+-   Google Search API
+-   Add Images for Trips
+-   Trips to Multiple Countries
+
+---
+
+### Future Enhancements
+
+-   Resolve the problems above
+-   Separate "places" (places saved to visit) to its own Schema / Model
+
+<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -65,4 +128,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify -->
