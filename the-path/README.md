@@ -36,7 +36,7 @@ Back-End:
 
 ### The Planning
 
-You can check the app here: [The Path](https://www.example.com)
+You can check the app here: [The Path](https://the-path.herokuapp.com/)
 
 You can check the code here: [GitHub](https://github.com/suzynakayama/the-path)
 
