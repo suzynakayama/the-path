@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pathService from "../../utils/pathService";
@@ -188,7 +189,7 @@ class OnePath extends Component {
                                         ""
                                     )}
                                     <br />
-                                    <div className="d-flex justify-content-around mt-5 iti-bts-div mx-auto mb-5">
+                                    <div className="d-flex justify-content-around align-items-end mt-5 iti-bts-div mx-auto mb-5">
                                         <button
                                             type="button"
                                             data-toggle="modal"
@@ -198,6 +199,12 @@ class OnePath extends Component {
                                         >
                                             Add Itinerary
                                         </button>
+                                        <Link
+                                            className="a-btn"
+                                            to={`/paths/${this.state.path._id}/edit`}
+                                        >
+                                            Edit Path
+                                        </Link>
                                         <button
                                             className="a-btn"
                                             onClick={this.handleDelete}
@@ -236,13 +243,13 @@ class OnePath extends Component {
                                 this.state.path.places.length > 0 ? (
                                     <>
                                         <div className="scroll">
-                                            <ul className="d-flex justify-content-around flex-wrap">
+                                            <div className="d-flex justify-content-around flex-wrap">
                                                 {this.state.path.places.map(
                                                     (place, idx) => {
                                                         return (
-                                                            <li
+                                                            <div
                                                                 key={idx}
-                                                                className="col-sm-5"
+                                                                className="col-sm-5 mt-4"
                                                             >
                                                                 <a
                                                                     className="place-name"
@@ -273,15 +280,15 @@ class OnePath extends Component {
                                                                 >
                                                                     Delete Place
                                                                 </button>
-                                                            </li>
+                                                            </div>
                                                         );
                                                     }
                                                 )}
-                                            </ul>
+                                            </div>
                                         </div>
                                     </>
                                 ) : (
-                                    <h5>You didn't save any place yet...</h5>
+                                    <h5>You didn't save any places yet...</h5>
                                 )
                             ) : (
                                 ""

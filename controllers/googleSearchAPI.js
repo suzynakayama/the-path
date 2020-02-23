@@ -3,12 +3,9 @@ const BASE_URL = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=01
 
 function searchTerms(req, res) {
     try {
-        console.log(BASE_URL + req.query.q);
         let result = fetch(BASE_URL + req.query.q);
-        console.log(result);
         return res.status(200).json(result);
     } catch (err) {
-        console.log("why");
         res.status(400).json({ err });
     }
 }

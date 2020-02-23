@@ -40,6 +40,21 @@ async function updatePath(req, res) {
     });
 }
 
+async function updateOnePath(req, res) {
+    await Path.findOne({ _id: req.params.id }, (err, path) => {
+        path.country = req.body.country;
+        path.from = req.body.from;
+        path.to = req.body.to;
+        path.notes = req.body.notes;
+        try {
+            path.save();
+            res.status(200).json(path);
+        } catch (err) {
+            res.status(400).json({ err });
+        }
+    });
+}
+
 async function deletePlaceAndUpdatePath(req, res) {
     await Path.findOne({ _id: req.params.id }, (err, path) => {
         path.places.splice(req.body, 1);
@@ -65,6 +80,7 @@ module.exports = {
     index,
     createPath,
     showPath,
+    updateOnePath,
     updatePath,
     deletePlaceAndUpdatePath,
     deletePath

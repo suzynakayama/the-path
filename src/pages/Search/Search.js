@@ -3,7 +3,6 @@ import pathService from "../../utils/pathService";
 import yelpAPI from "../../utils/yelpAPI";
 //import googleAPI from "../../utils/googleAPI";
 import "./Search.css";
-// const imageThumbnail = require("image-thumbnail");
 
 class Search extends Component {
     constructor() {
@@ -31,7 +30,7 @@ class Search extends Component {
         }
     }
 
-    // GOOGLE_API
+    // TODO GOOGLE_API
     // getAPI = async evt => {
     //     evt.preventDefault();
     //     try {
@@ -101,7 +100,6 @@ class Search extends Component {
     };
 
     savePlace = async place => {
-        // place.thumb = await imageThumbnail(place.image);
         this.setState({
             chosenPlace: place,
             ...this.state.searchRequest,
@@ -164,10 +162,10 @@ class Search extends Component {
                         <div className="line mb-2" />
                         <div className="d-flex justify-content-around w-90 flex-wrap scroll places-found-div mt-5">
                             {this.state.places.length > 0 ? (
-                                this.state.places.map(onePlace => {
+                                this.state.places.map((onePlace, idx) => {
                                     return (
                                         <div
-                                            key={onePlace.name}
+                                            key={idx}
                                             className="col-sm-3 place-div border rounded p-3 m-3"
                                         >
                                             <h3>{onePlace.name}</h3>

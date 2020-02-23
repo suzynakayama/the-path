@@ -146,7 +146,7 @@ class PathsCards extends Component {
                             <div className="modal-body">
                                 <form onSubmit={this.handleSubmit}>
                                     <div className="form-group row mx-auto mt-4 mb-4">
-                                        {/* TODO input for images */}
+                                        {/* TODO input for google images */}
                                         <label
                                             htmlFor="country"
                                             className="col-sm-3 col-form-label"

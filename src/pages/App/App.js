@@ -7,6 +7,7 @@ import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import Paths from "../Paths/Paths";
 import OnePath from "../OnePath/OnePath";
+import OnePathEdit from "../OnePath/OnePathEdit";
 import Search from "../Search/Search";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -48,12 +49,7 @@ class App extends Component {
                     <Route
                         exact
                         path="/"
-                        render={() => (
-                            <Main
-                                handleLogout={this.handleLogout}
-                                user={this.state.user}
-                            />
-                        )}
+                        render={() => <Main user={this.state.user} />}
                     />
                     <Route
                         exact
@@ -80,7 +76,6 @@ class App extends Component {
                         path="/profile"
                         render={() => (
                             <Profile
-                                handleLogout={this.handleLogout}
                                 user={this.state.user}
                                 handleDeleteProfile={this.handleDeleteProfile}
                             />
@@ -93,7 +88,6 @@ class App extends Component {
                             userService.getUser() ? (
                                 <Paths
                                     history={history}
-                                    handleLogout={this.handleLogout}
                                     user={this.state.user}
                                 />
                             ) : (
@@ -104,23 +98,18 @@ class App extends Component {
                     <Route
                         exact
                         path="/paths/:id"
-                        render={props => (
-                            <OnePath
-                                {...props}
-                                handleLogout={this.handleLogout}
-                                user={this.state.user}
-                            />
-                        )}
+                        render={props => <OnePath {...props} />}
+                    />
+                    <Route
+                        exact
+                        path="/paths/:id/edit"
+                        render={props => <OnePathEdit {...props} />}
                     />
                     <Route
                         exact
                         path="/search"
                         render={props => (
-                            <Search
-                                {...props}
-                                handleLogout={this.handleLogout}
-                                user={this.state.user}
-                            />
+                            <Search {...props} user={this.state.user} />
                         )}
                     />
                 </Switch>

@@ -3,14 +3,10 @@ const router = express.Router();
 const pathsCtrl = require("../../controllers/paths");
 const itinerariesCtrl = require("../../controllers/itineraries");
 
-function checkAuth(req, res, next) {
-    if (req.user) return next();
-    return res.status(401).json({ msg: "Not Authorized" });
-}
-
 router.use(require("../../config/auth"));
 router.get("/", pathsCtrl.index);
 router.post("/", pathsCtrl.createPath);
+router.put("/:id/edit", pathsCtrl.updateOnePath);
 router.put("/:id/update", pathsCtrl.updatePath);
 router.put("/:id/update/deleteplace", pathsCtrl.deletePlaceAndUpdatePath);
 router.get("/:id", pathsCtrl.showPath);

@@ -1,3 +1,8 @@
 .itinerary-div {
     background-color: #f1f2f1 !important;
 }
+
+.extra-sml-text {
+    font-size: 14px;
+    margin: 0;
+}

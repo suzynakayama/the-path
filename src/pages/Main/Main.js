@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import "./Main.css";
 
-function Main(props) {
+function Main() {
     return (
         <div>
             <Carousel />

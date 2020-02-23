@@ -66,6 +66,21 @@ function getOnePathAndSave(id, place) {
         throw new Error("Database Error");
     });
 }
+
+function getOnePathAndUpdate(id, path) {
+    return fetch(`${BASE_URL}/${id}/edit`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + tokenService.getToken()
+        },
+        body: JSON.stringify(path)
+    }).then(res => {
+        if (res.ok) return res.json();
+        throw new Error("Database Error");
+    });
+}
+
 function deletePlace(id, placeIdx) {
     return fetch(`${BASE_URL}/${id}/update/deleteplace`, {
         method: "PUT",
@@ -85,6 +100,7 @@ export default {
     getAllPaths,
     getOnePath,
     deletePath,
+    getOnePathAndUpdate,
     getOnePathAndSave,
     deletePlace
 };

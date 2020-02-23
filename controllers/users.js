@@ -36,7 +36,6 @@ async function login(req, res) {
 }
 
 async function updateUser(req, res) {
-    console.log(req.body);
     await User.findOne({ email: req.body.email }, (err, user) => {
         user.name = req.body.name;
         user.email = req.body.email;

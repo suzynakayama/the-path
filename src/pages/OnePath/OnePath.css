@@ -41,3 +41,7 @@ li {
     padding-left: 180px;
     font-size: 19px;
 }
+
+.edit-bg {
+    margin-top: -24px !important;
+}

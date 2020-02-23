@@ -3,9 +3,21 @@ import { Link } from "react-router-dom";
 import userService from "../../utils/userService";
 
 class LoginPage extends Component {
-    state = {
-        email: "",
-        password: ""
+    constructor() {
+        super();
+        this.state = {
+            email: "",
+            password: ""
+        };
+        this.toastRef = React.createRef();
+    }
+
+    closeToast = () => {
+        this.toastRef.current.classList.remove("show");
+        this.setState({
+            email: "",
+            password: ""
+        });
     };
 
     handleChange = evt => {
@@ -21,8 +33,7 @@ class LoginPage extends Component {
             this.props.handleSignupOrLogin();
             this.props.history.push("/");
         } catch (err) {
-            // Use a modal or toast in your apps instead of alert
-            //"Invalid Credentials!";
+            this.toastRef.current.classList.add("show");
             console.log(err);
         }
     };
@@ -81,6 +92,30 @@ class LoginPage extends Component {
                             </div>
                         </div>
                     </form>
+                </div>
+                <div
+                    className="toast toast-div mx-auto"
+                    role="alert"
+                    aria-live="assertive"
+                    aria-atomic="true"
+                    ref={this.toastRef}
+                >
+                    <div className="toast-header">
+                        <strong className="mr-auto">Oh!</strong>
+                        <button
+                            type="button"
+                            className="ml-2 mb-1 close"
+                            data-dismiss="toast"
+                            aria-label="Close"
+                            onClick={this.closeToast}
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="toast-body">
+                        Your credentials appear not to be right. Please, try
+                        again.
+                    </div>
                 </div>
             </div>
         );
